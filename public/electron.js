@@ -1,4 +1,5 @@
 const electron = require('electron');
+require('@electron/remote/main').initialize();
 const app = electron.app;
 app.allowRendererProcessReuse = false;
 const BrowserWindow = electron.BrowserWindow;
@@ -16,7 +17,8 @@ function createWindow() {
     minHeight: 720,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      enableRemoteModule: true
     }
   });
   loadUrlWithNodeWorkaround(mainWindow, isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
