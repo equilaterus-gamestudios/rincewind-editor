@@ -2,10 +2,11 @@
 
 .CodeMirror {
   /* Set height, width, borders, and global font properties here */
-  font-family: Flashback;
-  height: 300px;
+  font-family: 'Press Start 2P';
+  font-size: 1.rem;
   color: black;
   direction: ltr;
+  overflow: hidden;
 }
 
 /* PADDING */
