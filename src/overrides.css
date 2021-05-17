@@ -4,13 +4,23 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    background-color: #fbf5ef;
+    color: #3d1500;
+}
+
+.menu {
+    background-color: #000;
 }
 
 .editor {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    overflow: auto;
+    overflow: hidden;
+}
+
+.no-overflow {
+    overflow: hidden hidden !important;
 }
 
 .editor-col {
@@ -21,15 +31,22 @@
     overflow: hidden auto;
     max-height: calc(100vh - 52px);
     max-width: 50vw;
+    background-size: cover;
 }
 
 .editor-col .CodeMirror {
     overflow: hidden;
-    display: flex;
-    flex-basis: 100%;
-    flex: 1;
     height: calc(100vh - 52px);
-    
+    width: 100%;
+}
+
+.preview-col {
+    padding: 20px;
+}
+
+.preview-content {
+    padding: 10px;
+    background-color: rgba(255,255,255,0.35);
 }
 
 button:focus, a:focus { outline:0; }
@@ -40,8 +57,9 @@ button:focus, a:focus { outline:0; }
 }
 
 html, body, pre, code, kbd, samp {
-    font-family: "Press Start 2P";
+    font-family: 'Flashback',  'Press Start 2P';
     -webkit-font-smoothing: none !important;
+    font-size: 20px;
 }
 
 
@@ -67,3 +85,28 @@ link > div > p{
 .main-btn{
     margin-top: 30px;
 }
+
+
+/*
+ * Custom scrollbars
+ */
+
+ /* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { dialog, webContents } from '@electron/remote';
 import Editor from './Editor';
 import Preview from './Preview';
- 
+
 const sampleCode = `# start
 
 - \`Terry Pratchett $t\`:  
@@ -46,30 +46,35 @@ const Home = (props) => {
   return  (
     <>
       <div className="app">
-      <button
-        type="button" className="nes-btn is-primary"
-        onClick={()=>{
-          dialog.showOpenDialog(
-              {
-                title:'Open Dialogue',
-                message:'First Dialog',
-                //pass 'openDirectory' to strictly open directories
-                properties: ['openFile']
-              }
-          ).then(result=>{
-            if (result.filePaths.length === 0) return;
-            console.log(result.filePaths[0]);
-          })
-        }}>
-          Open dialog
-        </button>
-
+        <div className="menu">
+        <button type="button" className="nes-btn is-warning">Save dialog</button> 
+        <button
+          type="button" className="nes-btn is-warning"
+          onClick={()=>{
+            dialog.showOpenDialog(
+                {
+                  title:'Open Dialogue',
+                  message:'First Dialog',
+                  //pass 'openDirectory' to strictly open directories
+                  properties: ['openFile']
+                }
+            ).then(result=>{
+              if (result.filePaths.length === 0) return;
+              console.log(result.filePaths[0]);
+            })
+          }}>
+            Open dialog
+          </button>
+          
+        </div>
         <div className="editor">
-          <div className="editor-col">
+          <div className="editor-col no-overflow">
             <Editor code={code} setCode={setCode}  />
           </div>
-          <div className="editor-col">
-            <Preview code={code} />
+          <div className="editor-col preview-col" style={{backgroundImage: `url('${process.env.PUBLIC_URL}/bg.png`}}>
+            <div className="preview-content">
+              <Preview code={code} />
+            </div>
           </div>
         </div>
         </div>
