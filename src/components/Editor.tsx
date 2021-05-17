@@ -1,6 +1,6 @@
 
 
-import React, { useState } from 'react';
+import React from 'react';
 import {Controlled as CodeMirror} from 'react-codemirror2';
 require('codemirror/mode/markdown/markdown');
 

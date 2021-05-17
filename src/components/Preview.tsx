@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
-import {render} from 'react-dom'
 import gfm from 'remark-gfm'
 import { Element } from 'react-markdown/src/ast-to-react'
 
@@ -56,6 +55,7 @@ const Preview = ({code}: PreviewProps) => (
     remarkPlugins={[gfm]} 
     children={code} 
     components={{
+      // eslint-disable-next-line
       h1: ({node, ...props}) => <h1 id={getIdFromHeader(node)} {...props} />,
       p: ({node, ...props}) => <p {...injectRincewindSyntax(props)} />,
       li: ({node, ...props}) => <li {...injectRincewindSyntax(props)} />

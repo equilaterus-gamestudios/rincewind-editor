@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { dialog, webContents } from '@electron/remote';
+import React from 'react';
+import { dialog } from '@electron/remote';
 import { loadFile } from '../common/fileUtils';
 
 interface MenuProps {
