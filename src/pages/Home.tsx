@@ -75,6 +75,7 @@ const Home = (props) => {
             <div className="preview-content">
               <Preview code={code} />
             </div>
+            <p style={{textAlign: 'right'}}>Say something wise, the elders are waiting.</p>
           </div>
         </div>
         </div>

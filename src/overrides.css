@@ -41,11 +41,12 @@
 }
 
 .preview-col {
-    padding-bottom: 25vh;
+    
 }
 
 .preview-content {
     padding: 20px;
+    padding-bottom: 70vh;
     font-size: 1.5rem;    
     color: #000;
 }
