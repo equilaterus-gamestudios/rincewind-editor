@@ -6,10 +6,11 @@ interface MenuProps {
   code?: string,
   currentFilename?: string,
   setCode: (string) => void,
-  setCurrentFilename?: (string) => void
+  setCurrentFilename?: (string) => void,
+  togglePreview: () => void
 }
 
-const Menu = ({code, currentFilename, setCode, setCurrentFilename}: MenuProps) => (
+const Menu = ({code, currentFilename, setCode, setCurrentFilename, togglePreview}: MenuProps) => (
   <>
     <button type="button" className="nes-btn is-warning">Save dialog</button> 
     <button type="button" className="nes-btn is-warning">Save dialog as...</button> 
@@ -30,6 +31,7 @@ const Menu = ({code, currentFilename, setCode, setCurrentFilename}: MenuProps) =
       }}>
         Open dialog
     </button>
+    <button type="button" className="nes-btn is-default" onClick={togglePreview}>Preview</button> 
   </>
 )
 

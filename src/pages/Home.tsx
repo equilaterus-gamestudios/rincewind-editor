@@ -41,19 +41,20 @@ $call \`FollowMe\`
 
 const Home = (props) => {
   const [code, setCode] = useState(sampleCode);
+  const [showPreview, setShowPreview] = useState(false);
 
   console.log(props.location.hash, ' ', props.location.pathname);
   return  (
     <>
       <div className="app">
         <div className="menu">
-          <Menu setCode={setCode} />
+          <Menu setCode={setCode} togglePreview={() => { setShowPreview(!showPreview); } }/>
         </div>
         <div className="editor">
-          <div className="editor-col no-overflow">
+          <div className={`editor-col editor-col-preview-${showPreview} no-overflow `}>
             <Editor code={code} setCode={setCode}  />
           </div>
-          <div className="editor-col preview-col" style={{backgroundImage: `url('${process.env.PUBLIC_URL}/bg.png`}}>
+          <div className={`preview-col-${showPreview}`} style={{backgroundImage: `url('${process.env.PUBLIC_URL}/bg.png`}}>
             <div className="preview-content">
               <Preview code={code} />
             </div>
