@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import { dialog, webContents } from '@electron/remote';
-import Editor from './Editor';
-import Preview from './Preview';
+import Editor from '../components/Editor';
+import Menu from '../components/Menu';
+import Preview from '../components/Preview';
 
 const sampleCode = `# start
 
@@ -47,25 +47,7 @@ const Home = (props) => {
     <>
       <div className="app">
         <div className="menu">
-        <button type="button" className="nes-btn is-warning">Save dialog</button> 
-        <button
-          type="button" className="nes-btn is-warning"
-          onClick={()=>{
-            dialog.showOpenDialog(
-                {
-                  title:'Open Dialogue',
-                  message:'First Dialog',
-                  //pass 'openDirectory' to strictly open directories
-                  properties: ['openFile']
-                }
-            ).then(result=>{
-              if (result.filePaths.length === 0) return;
-              console.log(result.filePaths[0]);
-            })
-          }}>
-            Open dialog
-          </button>
-          
+          <Menu setCode={setCode} />
         </div>
         <div className="editor">
           <div className="editor-col no-overflow">
