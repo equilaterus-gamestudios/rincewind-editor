@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { dialog } from '@electron/remote';
+import Editor from './Editor';
  
 const Home = () => {
  
@@ -22,6 +23,8 @@ const Home = () => {
         }}>
           Open Dialog to Select a file
          </button>
+
+         <Editor />
     </>
   );
   
