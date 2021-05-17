@@ -41,12 +41,31 @@
 }
 
 .preview-col {
-    padding: 20px;
+    padding-bottom: 25vh;
 }
 
 .preview-content {
-    padding: 10px;
-    background-color: rgba(255,255,255,0.35);
+    padding: 20px;
+    font-size: 1.5rem;    
+    color: #000;
+}
+
+.preview-content a {
+    color: rgb(12, 0, 124);
+}
+
+.preview-content code {
+    display: inline-block;
+    background-color: rgba(0,0,0,0.35);
+    color: #f1f1f1;
+    padding: 2px;
+    font-size: 1.8rem;
+}
+
+.preview-content .incode {
+    display: inline-block;
+    background-color: rgba(0,0,0,0.35);
+    color: #f1f1f1;
 }
 
 button:focus, a:focus { outline:0; }
@@ -57,7 +76,7 @@ button:focus, a:focus { outline:0; }
 }
 
 html, body, pre, code, kbd, samp {
-    font-family: 'Flashback',  'Press Start 2P';
+    font-family: 'VT323',  'Press Start 2P';
     -webkit-font-smoothing: none !important;
     font-size: 20px;
 }
