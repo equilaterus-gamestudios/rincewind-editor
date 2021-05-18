@@ -1,6 +1,7 @@
-import React from 'react';
-import { dialog } from '@electron/remote';
+import React, { useEffect } from 'react';
+import { dialog, Menu as ElectronMenu, MenuItem } from '@electron/remote';
 import { loadFile, saveFile } from '../common/fileUtils';
+import { titlebar } from '../App'
 
 interface MenuProps {
   unsavedChanges: boolean,
@@ -87,6 +88,38 @@ const Menu = ({unsavedChanges, setUnsavedChanges, code, setCode, filePath, setFi
     if (await saveFile(code, savePath)) setUnsavedChanges(false);    
   }
 
+  useEffect(()=> {
+    const menu = new ElectronMenu();
+      menu.append(new MenuItem({
+        label: 'File',
+        submenu: [
+          {
+            label: 'Open',
+            click: onLoadDialog
+          },
+          {
+            label: 'Save',
+            click: onSaveDialog,
+            accelerator: 'Ctrl+S'
+          },
+          {
+            label: 'Save as',
+            click: onSaveAsDialog
+          },
+          {
+            type: 'separator'
+          },
+          {
+            label: 'Close',
+            role: 'close'
+          }
+        ]
+      })
+    );
+    titlebar.updateMenu(menu);
+    ElectronMenu.setApplicationMenu(menu);
+  });
+
   return (
   <>
     <button
@@ -98,11 +131,6 @@ const Menu = ({unsavedChanges, setUnsavedChanges, code, setCode, filePath, setFi
       type="button" className={`nes-btn is-warning ${!unsavedChanges ? 'is-disabled' : ''}`} 
       onClick={onSaveDialog}>
         SAVE {unsavedChanges ? '[*]' : ''}
-    </button>    
-    <button 
-      type="button" className="nes-btn is-warning" 
-      onClick={onSaveAsDialog}>
-        SAVE AS...
     </button>
     <button
       type="button" className="nes-btn is-default" 

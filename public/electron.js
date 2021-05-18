@@ -15,6 +15,8 @@ function createWindow() {
     height: 720, 
     minWidth: 1280,
     minHeight: 720,
+    frame: false,
+    titleBarStyle: 'hidden',
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -25,9 +27,10 @@ function createWindow() {
   if (isDev) {
     // Open the DevTools.
     //BrowserWindow.addDevToolsExtension('<location to your react chrome extension>');
-    mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();    
   } else {
-    mainWindow.removeMenu();
+    // Do nothing
+    // mainWindow.removeMenu();
   }
 
   mainWindow.on('close', (e) => {

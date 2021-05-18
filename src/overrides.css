@@ -76,6 +76,13 @@ link > div > p{
     color: #3d1500;
 }
 
+.titlebar, .menubar-menu-container .action-label {
+    font-size: 1rem !important;
+}
+.window-title {
+    font-size: 1rem !important;
+}
+
 .menu {
     background-color: #000;
 }
@@ -103,7 +110,7 @@ link > div > p{
     flex-basis: 100%;
     flex: 1;
     overflow: hidden auto;
-    max-height: calc(100vh - 52px);
+    max-height: calc(100vh - 85px);
     max-width: 50vw;
     background-size: cover;
 }
