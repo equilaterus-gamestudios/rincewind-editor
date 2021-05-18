@@ -40,19 +40,23 @@ $call \`FollowMe\`
 # end` 
 
 const Home = (props) => {
+  const [unsavedChanges, setUnsavedChanges] = useState(false);
   const [code, setCode] = useState(sampleCode);
-  const [showPreview, setShowPreview] = useState(false);
+  const [filePath, setFilePath] = useState(undefined);
+  const [showPreview, setShowPreview] = useState(true);
 
-  console.log(props.location.hash, ' ', props.location.pathname);
   return  (
     <>
       <div className="app">
         <div className="menu">
-          <Menu setCode={setCode} togglePreview={() => { setShowPreview(!showPreview); } }/>
+          <Menu 
+            unsavedChanges={unsavedChanges} setUnsavedChanges={setUnsavedChanges} 
+            code={code} setCode={setCode} filePath={filePath} setFilePath={setFilePath}
+            togglePreview={() => { setShowPreview(!showPreview); } }/>
         </div>
         <div className="editor">
           <div className={`editor-col editor-col-preview-${showPreview} no-overflow `}>
-            <Editor code={code} setCode={setCode}  />
+            <Editor code={code} setCode={setCode} setUnsavedChanges={setUnsavedChanges}  />
           </div>
           <div className={`preview-col-${showPreview}`} style={{backgroundImage: `url('${process.env.PUBLIC_URL}/bg.png`}}>
             <div className="preview-content">

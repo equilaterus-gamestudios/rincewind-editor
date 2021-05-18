@@ -6,10 +6,11 @@ require('codemirror/mode/markdown/markdown');
 
 interface EditorProps {
   code: string,
-  setCode: (string) => void
+  setCode: (string) => void,
+  setUnsavedChanges: (bool) => void
 }
 
-const Editor = ({code, setCode}: EditorProps) => {
+const Editor = ({code, setCode, setUnsavedChanges}: EditorProps) => {
   return (
     <CodeMirror
       value={code}
@@ -20,10 +21,8 @@ const Editor = ({code, setCode}: EditorProps) => {
         lineWrapping: true
       }}
       onBeforeChange={(editor, data, value) => {
+        setUnsavedChanges(true);
         setCode(value)
-      }}
-      onChange={(editor, data, value) => {
-        // TODO: Mark as modified file
       }}
     />
   )

@@ -91,6 +91,12 @@ link > div > p{
     overflow: hidden hidden !important;
 }
 
+.file-path {
+    color: white;
+    float:right;
+    padding: 14px;
+}
+
 .editor-col, .preview-col-true {
     display: flex;
     flex-direction: column;
