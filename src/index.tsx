@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker';
 // Styles
 import 'nes.css/css/nes.min.css';
 import '../node_modules/bootstrap/scss/bootstrap-grid.scss';
+import './codemirror.css';
 import './overrides.css';
 
 ReactDOM.render(

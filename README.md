@@ -1,17 +1,16 @@
+# Rincewind Editor
 
-# UtilityAI Configurator
+A safer way to use [Rincewind](https://github.com/equilaterus-gamestudios/rincewind), the magical machine built by druids. Say something wise, the elders are waiting.
 
-UtilityAI for UE4 by Equilaterus.
+## How to start the connection
 
-* Run: 
+* Run development and local rituals: 
   ```
   npm start
   ````
 
-* Build dist:
+* Build distribution for floppy disks:
   ```
   npm run build-web
   npm run build
   ```
-
-This project is being developed by Equilaterus.

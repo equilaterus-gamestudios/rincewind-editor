@@ -1,4 +1,5 @@
 const electron = require('electron');
+require('@electron/remote/main').initialize();
 const app = electron.app;
 app.allowRendererProcessReuse = false;
 const BrowserWindow = electron.BrowserWindow;
@@ -16,7 +17,8 @@ function createWindow() {
     minHeight: 720,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      enableRemoteModule: true
     }
   });
   loadUrlWithNodeWorkaround(mainWindow, isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
@@ -27,16 +29,24 @@ function createWindow() {
   } else {
     mainWindow.removeMenu();
   }
+
+  mainWindow.on('close', (e) => {
+    const choice = electron.dialog.showMessageBoxSync(
+      mainWindow,
+      {
+        type: 'question',
+        buttons: ['No, I don\'t want to be evaporated (neither lose pending changes).', 'Yes. Close everything.'],
+        title: 'Confirmation',
+        message: 'Unsaved changes will be lost.'
+      }
+    );
+    if (choice === 0) e.preventDefault();
+  });
+
   mainWindow.on('closed', () => mainWindow = null);
 }
 
 app.on('ready', createWindow);
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
 
 app.on('activate', () => {
   if (mainWindow === null) {
