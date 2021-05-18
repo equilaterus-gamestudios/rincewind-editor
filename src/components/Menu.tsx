@@ -88,6 +88,26 @@ const Menu = ({unsavedChanges, setUnsavedChanges, code, setCode, filePath, setFi
     if (await saveFile(code, savePath)) setUnsavedChanges(false);    
   }
 
+  const onCompile = () => {
+    if (!filePath) 
+    {
+      onSaveAsDialog();
+      return;
+    }
+
+    const child = require('child_process').execFile;
+    const executablePath = `Rincewind.exe`
+    const parameters = [filePath.substring(0, filePath.lastIndexOf('\\')+1), filePath.substring(filePath.lastIndexOf('\\') + 1), filePath.substring(filePath.lastIndexOf('\\') + 1, filePath.lastIndexOf('.'))];
+
+    console.log(executablePath)
+    console.log(parameters)
+
+    child(executablePath, parameters, function(err, data) {
+        console.log(err)
+        console.log(data.toString());
+    });
+  }
+
   useEffect(()=> {
     const menu = new ElectronMenu();
       menu.append(new MenuItem({
@@ -131,6 +151,11 @@ const Menu = ({unsavedChanges, setUnsavedChanges, code, setCode, filePath, setFi
       type="button" className={`nes-btn is-warning ${!unsavedChanges ? 'is-disabled' : ''}`} 
       onClick={onSaveDialog}>
         SAVE {unsavedChanges ? '[*]' : ''}
+    </button>
+    <button
+      type="button" className="nes-btn is-warning" 
+      onClick={onCompile}>
+        COMPILE
     </button>
     <button
       type="button" className="nes-btn is-default" 
