@@ -28,3 +28,6 @@ AIConfiguration.json
 conditionEvaluators.json
 decisions.json
 decisionSets.json
+
+# ignore .exe
+Rincewind.exe
