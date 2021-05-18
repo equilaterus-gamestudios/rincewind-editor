@@ -5,6 +5,11 @@ button:focus, a:focus { outline:0; }
     src: local('Press Start 2P'), url(./fonts/PressStart2P-Regular.ttf) format('woff');
 }
 
+@font-face {
+    font-family: 'VT323';
+    src: local('VT323'), url(./fonts/VT323-Regular.ttf) format('woff');
+}
+
 html, body, pre, code, kbd, samp {
     font-family: 'VT323',  'Press Start 2P';
     -webkit-font-smoothing: none !important;
