@@ -2,8 +2,7 @@
 
 .CodeMirror {
   /* Set height, width, borders, and global font properties here */
-  font-family: 'VT323', 'Press Start 2P';
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: #bdbdbd;
   direction: ltr;
   overflow: hidden;
@@ -113,7 +112,7 @@
 .cm-s-default .cm-quote {color: #090;}
 .cm-negative {color: #d44;}
 .cm-positive {color: #292;}
-.cm-header, .cm-strong {font-weight: bold;}
+.cm-strong {font-weight: bold;}
 .cm-em {font-style: italic; color: #ed94c0 !important;}
 .cm-link {text-decoration: underline;}
 .cm-strikethrough {text-decoration: line-through;}

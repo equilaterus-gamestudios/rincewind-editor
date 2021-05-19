@@ -14,3 +14,5 @@ A safer way to use [Rincewind](https://github.com/equilaterus-gamestudios/rincew
   npm run build-web
   npm run build
   ```
+
+To enable compilation, download the latest release of [Rincewind](https://github.com/equilaterus-gamestudios/rincewind/releases) and put it at the root folder of this project.

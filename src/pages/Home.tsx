@@ -44,7 +44,7 @@ const Home = (props) => {
   const [code, setCode] = useState(sampleCode);
   const [filePath, setFilePath] = useState(undefined);
   const [showPreview, setShowPreview] = useState(true);
-
+  
   return  (
     <>
       <div className="app">
@@ -58,11 +58,13 @@ const Home = (props) => {
           <div className={`editor-col editor-col-preview-${showPreview} no-overflow `}>
             <Editor code={code} setCode={setCode} setUnsavedChanges={setUnsavedChanges}  />
           </div>
-          <div className={`preview-col-${showPreview}`} style={{backgroundImage: `url('${process.env.PUBLIC_URL}/bg.png`}}>
-            <div className="preview-content">
-              <Preview code={code} />
+          <div className={`preview-col-${showPreview}`}>
+            <div className="preview-col-alpha">
+              <div className="preview-content">
+                <Preview code={code} />
+              </div>
+              <p style={{textAlign: 'right'}}>Say something wise, the elders are waiting.</p>
             </div>
-            <p style={{textAlign: 'right'}}>Say something wise, the elders are waiting.</p>
           </div>
         </div>
         </div>

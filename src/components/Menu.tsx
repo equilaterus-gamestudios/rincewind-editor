@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
+import { shell } from 'electron';
 import { dialog, Menu as ElectronMenu, MenuItem } from '@electron/remote';
 import { loadFile, saveFile } from '../common/fileUtils';
-import { titlebar } from '../App'
+import { isDev, titlebar } from '../App';
+
 
 interface MenuProps {
   unsavedChanges: boolean,
@@ -88,54 +90,96 @@ const Menu = ({unsavedChanges, setUnsavedChanges, code, setCode, filePath, setFi
     if (await saveFile(code, savePath)) setUnsavedChanges(false);    
   }
 
-  const onCompile = () => {
+  const onCompile = async () => {
     if (!filePath) 
     {
       onSaveAsDialog();
       return;
     }
+    await onSaveDialog();
 
     const child = require('child_process').execFile;
-    const executablePath = `Rincewind.exe`
-    const parameters = [filePath.substring(0, filePath.lastIndexOf('\\')+1), filePath.substring(filePath.lastIndexOf('\\') + 1), filePath.substring(filePath.lastIndexOf('\\') + 1, filePath.lastIndexOf('.'))];
+    const executablePath = `Rincewind-x64.exe`;
 
-    console.log(executablePath)
-    console.log(parameters)
-
+    const paramPath = filePath.substring(0, filePath.lastIndexOf('\\') + 1);
+    const paramInFile = filePath.substring(filePath.lastIndexOf('\\') + 1);
+    const paramOutFile = paramInFile.substring(0, paramInFile.lastIndexOf('.'));
+    const parameters = [paramPath, paramInFile, paramOutFile];
+    
     child(executablePath, parameters, function(err, data) {
-        console.log(err)
-        console.log(data.toString());
+        if (err) { 
+          console.log(err);
+          dialog.showErrorBox('Error compiling', data?.toString());
+        }
+        else
+        {
+          const dataString = data.toString();
+          console.log(dataString);
+          const choice = dialog.showMessageBoxSync(
+            {
+              type: 'question',
+              buttons: ['Continue.', 'See output folder.'],
+              title: 'Rincewind',
+              message: dataString
+            }
+          );
+          if (choice > 0) 
+          {
+            shell.openPath(paramPath);
+          }
+        }
     });
   }
 
   useEffect(()=> {
     const menu = new ElectronMenu();
+    menu.append(new MenuItem({
+      label: 'File',
+      submenu: [
+        {
+          label: 'Open',
+          click: onLoadDialog
+        },
+        {
+          label: 'Save',
+          click: onSaveDialog,
+          accelerator: 'Ctrl+S'
+        },
+        {
+          label: 'Save as',
+          click: onSaveAsDialog
+        },
+        {
+          type: 'separator'
+        },
+        {
+          label: 'Close',
+          role: 'close'
+        }
+      ]
+    }));
+
+    if (isDev)
+    {
       menu.append(new MenuItem({
-        label: 'File',
+        label: 'Dev',
         submenu: [
           {
-            label: 'Open',
-            click: onLoadDialog
+            label: 'Inspector',
+            role: 'toggleDevTools'
           },
           {
-            label: 'Save',
-            click: onSaveDialog,
-            accelerator: 'Ctrl+S'
+            label: 'Reload',
+            role: 'reload'
           },
           {
-            label: 'Save as',
-            click: onSaveAsDialog
+            label: 'Force reload',
+            role: 'forceReload'
           },
-          {
-            type: 'separator'
-          },
-          {
-            label: 'Close',
-            role: 'close'
-          }
-        ]
-      })
-    );
+      ]
+      }));
+    }
+
     titlebar.updateMenu(menu);
     ElectronMenu.setApplicationMenu(menu);
   });
@@ -143,24 +187,24 @@ const Menu = ({unsavedChanges, setUnsavedChanges, code, setCode, filePath, setFi
   return (
   <>
     <button
-      type="button" className="nes-btn is-primary"
+      type="button" className="btn"
       onClick={onLoadDialog}>
-        OPEN
+        Open
     </button>
     <button 
-      type="button" className={`nes-btn is-warning ${!unsavedChanges ? 'is-disabled' : ''}`} 
+      type="button" className={`btn`} 
       onClick={onSaveDialog}>
-        SAVE {unsavedChanges ? '[*]' : ''}
+        Save {unsavedChanges ? '[*]' : ''}
     </button>
     <button
-      type="button" className="nes-btn is-warning" 
+      type="button" className={`btn ${!filePath ? 'is-disabled' : ''}`} 
       onClick={onCompile}>
-        COMPILE
+        Compile
     </button>
     <button
-      type="button" className="nes-btn is-default" 
+      type="button" className="btn" 
       onClick={togglePreview}>
-        PREVIEW
+        Preview
     </button>
 
     <span className="file-path">{filePath ?? 'Not saved'} {unsavedChanges ? '[*]' : ''}</span>

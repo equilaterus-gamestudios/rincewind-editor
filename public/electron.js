@@ -16,7 +16,6 @@ function createWindow() {
     minWidth: 1280,
     minHeight: 720,
     frame: false,
-    titleBarStyle: 'hidden',
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -56,6 +55,10 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+electron.ipcMain.handle('is-dev', async () => {
+  return isDev;
+})
 
 // Workaround for https://github.com/electron/electron/issues/19554 otherwise fs does not work
 function loadUrlWithNodeWorkaround(window, url) {
