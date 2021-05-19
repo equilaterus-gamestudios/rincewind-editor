@@ -1,6 +1,13 @@
 import { createContext, useState } from "react";
 import { SAMPLE_CODE } from "../common/constants";
 
+// Custom interface to get stored data
+export interface StoredPreferences {
+  backgroundColor: string,
+  backgroundUrl: string,
+}
+
+// Context shape
 export interface EditorContextData {
   unsavedChanges: boolean,
   setUnsavedChanges:  (boolean) => void,
@@ -14,9 +21,12 @@ export interface EditorContextData {
   setBackgroundColor: (string) => void,
   backgroundUrl: string | undefined,
   setBackgroundUrl: (string) => void,
-  setPreferencesDefaults: () => void
+  setPreferencesDefaults: () => void,
+  setPreferences: (preferences: StoredPreferences) => void,
+  getPreferencesToStore: () => StoredPreferences
 }
 
+// Default context data
 export const defaultEditorContextData: EditorContextData = {
   unsavedChanges: false,
   setUnsavedChanges:  () => { throw Error('Not implemented setUnsavedChanges'); },
@@ -30,11 +40,16 @@ export const defaultEditorContextData: EditorContextData = {
   setBackgroundColor: () => { throw Error('Not implemented setBackgroundColor'); },
   backgroundUrl: '',
   setBackgroundUrl: () => { throw Error('Not implemented setBackgroundUrl'); },
-  setPreferencesDefaults: () => { throw Error('Not implemented setPreferencesDefaults'); }
+  setPreferencesDefaults: () => { throw Error('Not implemented setPreferencesDefaults'); },
+  // eslint-disable-next-line
+  setPreferences: (preferences: StoredPreferences) => { throw Error('Not implemented setPreferences'); },
+  getPreferencesToStore: () => { throw Error('Not implemented getPreferencesToStore'); },
 }
 
+// Context
 export const EditorContext = createContext<EditorContextData>(defaultEditorContextData);
 
+// Hook
 export function useEditorState(): EditorContextData {
   const [unsavedChanges, setUnsavedChanges] = useState(defaultEditorContextData.unsavedChanges);
   const [code, setCode] = useState(defaultEditorContextData.code);
@@ -46,6 +61,19 @@ export function useEditorState(): EditorContextData {
   const setPreferencesDefaults = () => {
     setBackgroundColor(defaultEditorContextData.backgroundColor);
     setBackgroundUrl(defaultEditorContextData.backgroundUrl);
+  }
+
+  const setPreferences = (preferences: StoredPreferences) => {
+    if (!preferences) return;
+    setBackgroundColor(preferences.backgroundColor)
+    setBackgroundUrl(preferences.backgroundUrl)
+  }
+
+  const getPreferencesToStore = (): StoredPreferences => {
+    return {
+      backgroundColor, 
+      backgroundUrl
+    }
   }
 
   return {
@@ -61,6 +89,8 @@ export function useEditorState(): EditorContextData {
     setBackgroundColor,
     backgroundUrl,
     setBackgroundUrl,
-    setPreferencesDefaults
+    setPreferencesDefaults,
+    setPreferences,
+    getPreferencesToStore
   }
 }

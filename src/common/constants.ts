@@ -1,3 +1,8 @@
+export const LOCATIONS = {
+  START: ".",
+  PREFERENCES: "/Preferences"
+}
+
 export const SAMPLE_CODE = `# start
 
 - \`Terry Pratchett $t\`:  

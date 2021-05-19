@@ -11,7 +11,7 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    icon: path.join(__dirname, '/Rincewind.ico'),
+    icon: path.join(__dirname, '/icon.png'),
     width: 1280, 
     height: 720, 
     minWidth: 1280,
@@ -30,7 +30,6 @@ function createWindow() {
     mainWindow.webContents.openDevTools();    
   } else {
     // Do nothing
-    // mainWindow.removeMenu();
   }
 
   mainWindow.on('close', (e) => {

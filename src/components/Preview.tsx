@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
 import { Element } from 'react-markdown/src/ast-to-react'
-import { EditorContext } from '../hooks/useEditor'
+import { EditorContext } from '../models/editor'
 
 interface MdComponentInternalProps {
  

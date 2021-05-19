@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { shell } from 'electron';
-import { EditorContext } from '../hooks/useEditor';
+import { EditorContext } from '../models/editor';
 
 const Preferences = () => {
   const { backgroundColor, setBackgroundColor, backgroundUrl, setBackgroundUrl} = useContext(EditorContext);
@@ -20,7 +20,7 @@ const Preferences = () => {
         </div>
         <div className="col-8">       
           <input type="text" value={backgroundUrl} onChange={(e) => setBackgroundUrl(e.target.value)} />
-          Search for <a onClick={() => { shell.openExternal('https://giphy.com/search/pixel-art')}}>pixelart backgrounds.</a>
+          Search for <button className="link" onClick={() => { shell.openExternal('https://giphy.com/search/pixel-art')}}>pixelart backgrounds.</button>
         </div>
       </div>
     </>

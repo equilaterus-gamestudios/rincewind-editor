@@ -1,3 +1,4 @@
+import { dialog } from '@electron/remote';
 import { promises as fs } from 'fs';
 
 export const saveFile = async (code: string, filepath: string): Promise<boolean> => {
@@ -5,16 +6,17 @@ export const saveFile = async (code: string, filepath: string): Promise<boolean>
     await fs.writeFile(filepath, code, 'utf8');
     return true;
   } catch(e) {
-     alert(`Error saving. ${JSON.stringify(e)}`); 
+    dialog.showErrorBox('Error', `Error saving. ${JSON.stringify(e)}`); 
   }
   return false;
 }
 
-export const loadFile = async (filepath: string): Promise<string> => {
+export const loadFile = async (filepath: string, showErrors = true): Promise<string> => {
   try {
     return await fs.readFile(filepath, 'utf8');    
   } catch(e) {
-     alert(`Error opening file. ${JSON.stringify(e)}`); 
+    if (showErrors)
+      dialog.showErrorBox('Error', `Error opening file. ${JSON.stringify(e)}`); 
   }
   return '';
 }

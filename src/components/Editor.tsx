@@ -2,7 +2,7 @@
 
 import React, { useContext } from 'react';
 import {Controlled as CodeMirror} from 'react-codemirror2';
-import { EditorContext } from '../hooks/useEditor';
+import { EditorContext } from '../models/editor';
 require('codemirror/mode/markdown/markdown');
 
 const Editor = () => {

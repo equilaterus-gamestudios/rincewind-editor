@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { EditorContext } from '../hooks/useEditor';
+import { EditorContext } from '../models/editor';
 import Preview from './Preview';
 
 interface PreviewColProps {
