@@ -47,9 +47,15 @@ const injectRincewindSyntax = (props: MdComponentInternalProps): MdComponentInte
   return props;
 }
 
-const Preview = () => {
+export interface PreviewProps {
+  enabled: boolean
+}
+
+const Preview = ({enabled}: PreviewProps) => {
   const { code } = useContext(EditorContext);
-  return (
+  // If disabled, do not render md preview
+  if (!enabled) return (<></>);
+  return (   
     <ReactMarkdown 
       remarkPlugins={[gfm]} 
       children={code} 

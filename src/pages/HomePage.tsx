@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 
 import Editor from '../components/Editor';
 import Menu from '../components/Menu';
-import Preview from '../components/Preview';
+import PreviewCol from '../components/PreviewCol';
 import { EditorContext } from '../hooks/useEditor';
 
 const sampleCode = `# start
@@ -52,18 +52,9 @@ const Home = () => {
           <div className={`editor-col editor-col-preview-${showPreview} no-overflow `}>
             <Editor />
           </div>
-          <div className={`preview-col-${showPreview}`}>
-            <div className="preview-col-alpha">
-              <div className="preview-content">
-                <Preview />
-              </div>
-              <p style={{textAlign: 'right'}}>Say something wise, the elders are waiting.</p>
-            </div>
-          </div>
+          <PreviewCol enabled={showPreview} />
         </div>
-        </div>
-         
-         
+      </div>
     </>
   );
   

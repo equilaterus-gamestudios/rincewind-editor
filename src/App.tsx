@@ -1,10 +1,12 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from './history';
-import Home from './pages/Home';
+import HomePage from './pages/HomePage';
+import PreferencesPage from './pages/PreferencesPage';
 import { Titlebar, Color } from 'custom-electron-titlebar'
 import { ipcRenderer } from 'electron';
 import { EditorContext, useEditorState } from './hooks/useEditor';
+
 
 export const titlebar = new Titlebar({
 	backgroundColor: Color.fromHex('#000'),
@@ -20,7 +22,8 @@ const App = () => {
     <EditorContext.Provider value={editorState}>
       <Router history={history}>
         <Switch>
-          <Route path="/" component={Home} />
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/preferences" component={PreferencesPage} />
         </Switch>
       </Router> 
     </EditorContext.Provider>   

@@ -14,6 +14,8 @@ html, body, pre, code, kbd, samp {
     font-family:  'VT323',  'Press Start 2P';
     -webkit-font-smoothing: none !important;
     font-size: 24px;
+    background-color: #3a3123;
+    color: #eed093;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -52,6 +54,21 @@ link > div > p{
     background-color: #504330;
     color: #ab9e7f;
     cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC) 14 0,pointer;
+}
+
+input {
+    background-color: #3b3325;
+    color: #ab9e7f;
+    outline: none;
+    width: 100%;
+}
+
+.app a {
+    color: #fdfa55 !important;
+}
+
+.app a:hover {
+    text-decoration: underline !important;
 }
 
 .btn:hover {
@@ -95,9 +112,7 @@ link > div > p{
     max-height: 100vh;
     overflow: hidden;
     display: flex;
-    flex-direction: column;
-    background-color: #3a3123;
-    color: #eed093;
+    flex-direction: column;    
 }
 
 .titlebar, .menubar-menu-container .action-label {
@@ -128,6 +143,11 @@ link > div > p{
     padding-right: 15px;
 }
 
+.preferences-col {
+    color: #ab9e7f;
+    border-right: 1px solid #504330;
+}
+
 .editor {
     display: flex;
     flex-direction: row;
@@ -139,7 +159,7 @@ link > div > p{
     overflow: hidden hidden !important;
 }
 
-.editor-col, .preview-col-true {
+.editor-col, .preview-col-true, .preferences-col {
     display: flex;
     flex-direction: column;
     flex-basis: 100%;
@@ -164,23 +184,19 @@ link > div > p{
 .preview-col-true {
 }
 
-.preview-col-alpha {
-    background: rgba(47, 45, 45, 0.7);
-}
-
 .preview-col-false {
     display: none;
 }
 
 .preview-content {
     padding: 20px;
-    padding-bottom: 70vh;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     font-size: 1.0rem;
 }
 
-.preview-content a {
-    color: #fdfa55;
+.preview-end {
+    padding-top: 70vh;
+    text-align: right;
 }
 
 .preview-content p {

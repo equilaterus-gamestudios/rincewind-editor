@@ -4,6 +4,7 @@ import { dialog, Menu as ElectronMenu, MenuItem } from '@electron/remote';
 import { loadFile, saveFile } from '../common/fileUtils';
 import { isDev, titlebar } from '../App';
 import { EditorContext } from '../hooks/useEditor';
+import history from '../history';
 
 
 const Menu = () => {
@@ -124,6 +125,10 @@ const Menu = () => {
     });
   }
 
+  const onPreferences = () => {
+    history.push('preferences')
+  }
+
   useEffect(()=> {
     const menu = new ElectronMenu();
     menu.append(new MenuItem({
@@ -198,6 +203,11 @@ const Menu = () => {
       type="button" className="btn" 
       onClick={togglePreview}>
         Preview
+    </button>
+    <button
+      type="button" className="btn" 
+      onClick={onPreferences}>
+        Preferences
     </button>
 
     <span className="file-path">{filePath ?? 'Not saved'} {unsavedChanges ? '[*]' : ''}</span>
