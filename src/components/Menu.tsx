@@ -1,22 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { shell } from 'electron';
 import { dialog, Menu as ElectronMenu, MenuItem } from '@electron/remote';
 import { loadFile, saveFile } from '../common/fileUtils';
 import { isDev, titlebar } from '../App';
+import { EditorContext } from '../hooks/useEditor';
 
 
-interface MenuProps {
-  unsavedChanges: boolean,
-  setUnsavedChanges: (boolean) => void,  
-  code: string,
-  setCode: (string) => void,
-  filePath: string,  
-  setFilePath: (string) => void,
-  togglePreview: () => void
-}
-
-
-const Menu = ({unsavedChanges, setUnsavedChanges, code, setCode, filePath, setFilePath, togglePreview}: MenuProps) => {
+const Menu = () => {
+  const {unsavedChanges, setUnsavedChanges, code, setCode, filePath, setFilePath, showPreview, setShowPreview} = useContext(EditorContext)
+  const togglePreview = () => setShowPreview(!showPreview)
+  
   // Handlers
   const onLoadDialog = async () => {
     // Pending changes?

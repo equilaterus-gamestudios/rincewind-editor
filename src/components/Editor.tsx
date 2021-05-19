@@ -1,16 +1,13 @@
 
 
-import React from 'react';
+import React, { useContext } from 'react';
 import {Controlled as CodeMirror} from 'react-codemirror2';
+import { EditorContext } from '../hooks/useEditor';
 require('codemirror/mode/markdown/markdown');
 
-interface EditorProps {
-  code: string,
-  setCode: (string) => void,
-  setUnsavedChanges: (bool) => void
-}
+const Editor = () => {
+  const {code, setCode, setUnsavedChanges} = useContext(EditorContext);
 
-const Editor = ({code, setCode, setUnsavedChanges}: EditorProps) => {
   return (
     <CodeMirror
       value={code}

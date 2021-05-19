@@ -1,11 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
 import { Element } from 'react-markdown/src/ast-to-react'
-
-interface PreviewProps {
-  code: string
-}
+import { EditorContext } from '../hooks/useEditor'
 
 interface MdComponentInternalProps {
  
@@ -50,17 +47,20 @@ const injectRincewindSyntax = (props: MdComponentInternalProps): MdComponentInte
   return props;
 }
 
-const Preview = ({code}: PreviewProps) => (
-  <ReactMarkdown 
-    remarkPlugins={[gfm]} 
-    children={code} 
-    components={{
-      // eslint-disable-next-line
-      h1: ({node, ...props}) => <h1 id={getIdFromHeader(node)} {...props} />,
-      p: ({node, ...props}) => <p {...injectRincewindSyntax(props)} />,
-      li: ({node, ...props}) => <li {...injectRincewindSyntax(props)} />
-    }}
-  />
-)
+const Preview = () => {
+  const { code } = useContext(EditorContext);
+  return (
+    <ReactMarkdown 
+      remarkPlugins={[gfm]} 
+      children={code} 
+      components={{
+        // eslint-disable-next-line
+        h1: ({node, ...props}) => <h1 id={getIdFromHeader(node)} {...props} />,
+        p: ({node, ...props}) => <p {...injectRincewindSyntax(props)} />,
+        li: ({node, ...props}) => <li {...injectRincewindSyntax(props)} />
+      }}
+    />
+  )
+}
 
 export default Preview;

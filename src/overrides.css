@@ -54,16 +54,14 @@ link > div > p{
     cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC) 14 0,pointer;
 }
 
-.btn:focus {
-    box-shadow: none;
-}
-
 .btn:hover {
     background-color: #746443;
-    color: #fdfa55;
+    color: #eed093;
 }
-.nes-btn::after  {
-    box-shadow: inset -4px -4px rgba(0,0,0,0.25) !important;
+.btn[disabled], .btn[disabled]:hover { 
+    cursor: not-allowed;
+    background-color: #3b3325;
+    color: #ab9e7f;
 }
 
 
@@ -83,12 +81,12 @@ link > div > p{
    
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: #504330; 
+    background: #352c1e; 
   }
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #504330; 
+    background: #352c1e; 
   }
 
 
@@ -118,6 +116,10 @@ link > div > p{
     background-color: #504330;
     align-items: center;
     justify-content: flex-start;
+}
+
+.logo {
+    margin: 0px 5px;
 }
 
 .file-path {
@@ -155,12 +157,11 @@ link > div > p{
 
 .editor-col .CodeMirror {
     overflow: hidden;
-    height: calc(100vh - 52px);
+    height: calc(100vh - 84px);
     width: 100%;
 }
 
 .preview-col-true {
-    position: relative;
 }
 
 .preview-col-alpha {

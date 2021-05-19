@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import Editor from '../components/Editor';
 import Menu from '../components/Menu';
 import Preview from '../components/Preview';
+import { EditorContext } from '../hooks/useEditor';
 
 const sampleCode = `# start
 
@@ -39,29 +40,22 @@ $call \`FollowMe\`
 
 # end` 
 
-const Home = (props) => {
-  const [unsavedChanges, setUnsavedChanges] = useState(false);
-  const [code, setCode] = useState(sampleCode);
-  const [filePath, setFilePath] = useState(undefined);
-  const [showPreview, setShowPreview] = useState(true);
-  
+const Home = () => {
+  const { showPreview } = useContext(EditorContext);
   return  (
     <>
       <div className="app">
         <div className="menu">
-          <Menu 
-            unsavedChanges={unsavedChanges} setUnsavedChanges={setUnsavedChanges} 
-            code={code} setCode={setCode} filePath={filePath} setFilePath={setFilePath}
-            togglePreview={() => { setShowPreview(!showPreview); } }/>
+          <Menu />
         </div>
         <div className="editor">
           <div className={`editor-col editor-col-preview-${showPreview} no-overflow `}>
-            <Editor code={code} setCode={setCode} setUnsavedChanges={setUnsavedChanges}  />
+            <Editor />
           </div>
           <div className={`preview-col-${showPreview}`}>
             <div className="preview-col-alpha">
               <div className="preview-content">
-                <Preview code={code} />
+                <Preview />
               </div>
               <p style={{textAlign: 'right'}}>Say something wise, the elders are waiting.</p>
             </div>
