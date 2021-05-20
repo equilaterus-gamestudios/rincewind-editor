@@ -5,7 +5,7 @@ import * as serviceWorker from './serviceWorker';
 
 // Styles
 import 'nes.css/css/nes.min.css';
-import '../node_modules/bootstrap/scss/bootstrap-grid.scss';
+import '../node_modules/bootstrap/dist/css/bootstrap-grid.min.css';
 import './codemirror.css';
 import './overrides.css';
 
