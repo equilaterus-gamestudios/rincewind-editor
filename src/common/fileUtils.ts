@@ -6,6 +6,7 @@ export const saveFile = async (code: string, filepath: string): Promise<boolean>
     await fs.writeFile(filepath, code, 'utf8');
     return true;
   } catch(e) {
+    console.log(e);
     dialog.showErrorBox('Error', `Error saving. ${JSON.stringify(e)}`); 
   }
   return false;
@@ -15,6 +16,7 @@ export const loadFile = async (filepath: string, showErrors = true): Promise<str
   try {
     return await fs.readFile(filepath, 'utf8');    
   } catch(e) {
+    console.log(e);
     if (showErrors)
       dialog.showErrorBox('Error', `Error opening file. ${JSON.stringify(e)}`); 
   }
