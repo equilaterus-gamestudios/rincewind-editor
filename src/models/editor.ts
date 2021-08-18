@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { SAMPLE_CODE } from "../common/constants";
+import { SAMPLE_CODE, MODE_RINCEWIND } from "../common/constants";
 
 // Custom interface to get stored data
 export interface StoredPreferences {
@@ -13,6 +13,8 @@ export interface EditorContextData {
   setUnsavedChanges:  (boolean) => void,
   code: string,
   setCode: (string) => void,
+  mode: string,
+  setMode: (string) => void,
   filePath: string | undefined,
   setFilePath: (string) => void,
   showPreview: boolean,
@@ -30,6 +32,8 @@ export interface EditorContextData {
 export const defaultEditorContextData: EditorContextData = {
   unsavedChanges: false,
   setUnsavedChanges:  () => { throw Error('Not implemented setUnsavedChanges'); },
+  mode: MODE_RINCEWIND,
+  setMode: () => { throw Error('Not implemented setMode'); },
   code: SAMPLE_CODE,
   setCode: () => { throw Error('Not implemented setCode'); },
   filePath: undefined,
@@ -53,6 +57,7 @@ export const EditorContext = createContext<EditorContextData>(defaultEditorConte
 export function useEditorState(): EditorContextData {
   const [unsavedChanges, setUnsavedChanges] = useState(defaultEditorContextData.unsavedChanges);
   const [code, setCode] = useState(defaultEditorContextData.code);
+  const [mode, setMode] = useState(defaultEditorContextData.mode);
   const [filePath, setFilePath] = useState(defaultEditorContextData.filePath);
   const [showPreview, setShowPreview] = useState(defaultEditorContextData.showPreview);
   const [backgroundColor, setBackgroundColor] = useState(defaultEditorContextData.backgroundColor);
@@ -81,6 +86,8 @@ export function useEditorState(): EditorContextData {
     setUnsavedChanges,
     code,
     setCode,
+    mode,
+    setMode,
     filePath,
     setFilePath,
     showPreview,

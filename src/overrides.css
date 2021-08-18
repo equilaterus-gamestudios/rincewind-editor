@@ -11,9 +11,9 @@ button:focus, a:focus { outline:0; }
 }
 
 html, body, pre, code, kbd, samp {
-    font-family:  'VT323',  'Press Start 2P';
+    font-family:  'VT323',  'Press Start 2P' !important;
     -webkit-font-smoothing: none !important;
-    font-size: 24px;
+    font-size: 24px !important;
 }
 
 body {
@@ -21,13 +21,17 @@ body {
     color: #eed093;
 }
 
-h1, h2, h3, h4, h5, h6 {
+.rincewind-mode {
     font-size: 1rem;
-    font-weight: normal !important;
+}
+
+h1.rincewind-mode {
+    font-size: 1.6rem;
 }
 
 
-link > div > p{
+
+link > div > p {
     color: black;
 }
 
@@ -228,4 +232,8 @@ input {
     display: inline-block;
     background-color: rgba(0,0,0,0.35);
     color: #d4ba7c;
+}
+
+pre > div {
+    background: none !important;
 }

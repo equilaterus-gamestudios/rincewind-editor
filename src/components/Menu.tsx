@@ -5,12 +5,19 @@ import { loadFile, saveFile } from '../common/fileUtils';
 import { isDev, titlebar } from '../App';
 import { EditorContext } from '../models/editor';
 import { LocationContext } from '../models/location';
-import { LOCATIONS } from '../common/constants';
+import { LOCATIONS, MODE_MD, MODE_RINCEWIND } from '../common/constants';
 
 const Menu = () => {
-  const {unsavedChanges, setUnsavedChanges, code, setCode, filePath, setFilePath, showPreview, setShowPreview} = useContext(EditorContext)
+  const { unsavedChanges, setUnsavedChanges, code, setCode, mode, setMode, filePath, setFilePath, showPreview, setShowPreview} = useContext(EditorContext)
   const { setLocation } = useContext(LocationContext);
   const togglePreview = () => setShowPreview(!showPreview);
+  const toggleMode = () => { 
+    if (mode === MODE_RINCEWIND) {
+      setMode(MODE_MD);
+    } else {
+      setMode(MODE_RINCEWIND);
+     }
+  }
   
   // Handlers
   const onLoadDialog = async () => {
@@ -204,6 +211,11 @@ const Menu = () => {
       type="button" className="btn" 
       onClick={togglePreview}>
         Preview
+    </button>
+    <button
+      type="button" className="btn" 
+      onClick={toggleMode}>
+        {mode === MODE_RINCEWIND ? 'Mode Rincewind' : 'Mode Markdown'}
     </button>
     <button
       type="button" className="btn" 

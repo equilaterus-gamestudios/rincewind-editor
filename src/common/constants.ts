@@ -3,6 +3,9 @@ export const LOCATIONS = {
   PREFERENCES: "/Preferences"
 }
 
+export const MODE_RINCEWIND = 'MODE_RINCEWIND';
+export const MODE_MD = 'MODE_MD';
+
 export const SAMPLE_CODE = `# start
 
 - \`Terry Pratchett $t\`:  
