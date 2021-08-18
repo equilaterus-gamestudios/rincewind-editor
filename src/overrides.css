@@ -150,6 +150,14 @@ input {
     justify-content: flex-start;
 }
 
+.menu img {
+    max-width: 32px;
+}
+
+.img-gray {
+    filter: grayscale(1);
+}
+
 .logo {
     margin: 0px 5px;
 }

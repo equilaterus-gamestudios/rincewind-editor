@@ -5,11 +5,13 @@ import { loadFile, saveFile } from '../common/fileUtils';
 import { isDev, titlebar } from '../App';
 import { EditorContext } from '../models/editor';
 import { LocationContext } from '../models/location';
-import { LOCATIONS, MODE_MD, MODE_RINCEWIND } from '../common/constants';
+import { LOCATIONS, MODE_MD, MODE_RINCEWIND, SAMPLE_CODE } from '../common/constants';
 
 const Menu = () => {
   const { unsavedChanges, setUnsavedChanges, code, setCode, mode, setMode, filePath, setFilePath, showPreview, setShowPreview} = useContext(EditorContext)
   const { setLocation } = useContext(LocationContext);
+
+  // Togglers
   const togglePreview = () => setShowPreview(!showPreview);
   const toggleMode = () => { 
     if (mode === MODE_RINCEWIND) {
@@ -20,6 +22,23 @@ const Menu = () => {
   }
   
   // Handlers
+  const onNewFile = async () => {
+    if (unsavedChanges) {
+      const choice = await dialog.showMessageBox(
+        {
+          type: 'question',
+          buttons: ['No, I want to save my changes before creating a new file.', 'Yes, continue and ignore changes.'],
+          title: 'Confirmation',
+          message: 'Unsaved changes will be lost.'
+        }
+      );
+      if (choice.response === 0) return;
+    }
+
+    setCode(SAMPLE_CODE);
+    setFilePath(undefined);
+    setUnsavedChanges(false);
+  }
   const onLoadDialog = async () => {
     // Pending changes?
     if (unsavedChanges) {
@@ -143,6 +162,10 @@ const Menu = () => {
       label: 'File',
       submenu: [
         {
+          label: 'New',
+          click: onNewFile
+        },
+        {
           label: 'Open',
           click: onLoadDialog
         },
@@ -194,33 +217,41 @@ const Menu = () => {
   <>
     <button
       type="button" className="btn"
+      onClick={onNewFile}>
+        <img src={process.env.PUBLIC_URL + '/new.png'} />
+    </button>
+    <button
+      type="button" className="btn"
       onClick={onLoadDialog}>
-        Open
+        <img src={process.env.PUBLIC_URL + '/open.png'} />
     </button>
     <button 
       type="button" className={`btn`} 
       onClick={onSaveDialog}>
-        Save {unsavedChanges ? '[*]' : ''}
-    </button>
-    <button
-      type="button" className={`btn ${!filePath ? 'is-disabled' : ''}`} 
-      onClick={onCompile}>
-        Compile
+        <img src={process.env.PUBLIC_URL + '/save.png'} /> {unsavedChanges ? '[*]' : ''}
     </button>
     <button
       type="button" className="btn" 
       onClick={togglePreview}>
-        Preview
+       <img src={process.env.PUBLIC_URL + '/preview.png'} />
     </button>
     <button
       type="button" className="btn" 
-      onClick={toggleMode}>
-        {mode === MODE_RINCEWIND ? 'Mode Rincewind' : 'Mode Markdown'}
+      onClick={toggleMode} >
+        <img 
+          className={mode === MODE_RINCEWIND ? '' : 'img-gray'} 
+          src={process.env.PUBLIC_URL + '/icon.png'}          
+        />
+    </button>
+    <button
+      type="button" className={`btn ${!filePath ? 'is-disabled' : ''}`} 
+      onClick={onCompile}>
+         <img src={process.env.PUBLIC_URL + '/compile.png'} /> Compile
     </button>
     <button
       type="button" className="btn" 
       onClick={onPreferences}>
-        Preferences
+         <img src={process.env.PUBLIC_URL + '/preferences.png'} />
     </button>
 
     <span className="file-path">{filePath ?? 'Not saved'} {unsavedChanges ? '[*]' : ''}</span>
