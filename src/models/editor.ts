@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, MutableRefObject, useRef, useState } from "react";
 import { SAMPLE_CODE, MODE_RINCEWIND } from "../common/constants";
 
 // Custom interface to get stored data
@@ -9,6 +9,8 @@ export interface StoredPreferences {
 
 // Context shape
 export interface EditorContextData {
+  // Codemirror types aren't working, so we use any for them.
+  codeMirror: MutableRefObject<any>, 
   unsavedChanges: boolean,
   setUnsavedChanges:  (boolean) => void,
   code: string,
@@ -17,6 +19,8 @@ export interface EditorContextData {
   setMode: (string) => void,
   filePath: string | undefined,
   setFilePath: (string) => void,
+  showFind: boolean,
+  setShowFind: (boolean) => void,
   showPreview: boolean,
   setShowPreview: (boolean) => void,
   backgroundColor: string | undefined,
@@ -30,6 +34,7 @@ export interface EditorContextData {
 
 // Default context data
 export const defaultEditorContextData: EditorContextData = {
+  codeMirror: undefined,
   unsavedChanges: false,
   setUnsavedChanges:  () => { throw Error('Not implemented setUnsavedChanges'); },
   mode: MODE_RINCEWIND,
@@ -38,6 +43,8 @@ export const defaultEditorContextData: EditorContextData = {
   setCode: () => { throw Error('Not implemented setCode'); },
   filePath: undefined,
   setFilePath: () => { throw Error('Not implemented setFilePath'); },
+  showFind: false,
+  setShowFind: () => { throw Error('Not implemented setShowFind'); },
   showPreview: true,
   setShowPreview:  () => { throw Error('Not implemented setShowPreview'); },
   backgroundColor: 'rgba(47, 45, 45, 0.7)',
@@ -55,10 +62,12 @@ export const EditorContext = createContext<EditorContextData>(defaultEditorConte
 
 // Hook
 export function useEditorState(): EditorContextData {
+  const codeMirror = useRef<any>();
   const [unsavedChanges, setUnsavedChanges] = useState(defaultEditorContextData.unsavedChanges);
   const [code, setCode] = useState(defaultEditorContextData.code);
   const [mode, setMode] = useState(defaultEditorContextData.mode);
   const [filePath, setFilePath] = useState(defaultEditorContextData.filePath);
+  const [showFind, setShowFind] = useState(defaultEditorContextData.showFind);
   const [showPreview, setShowPreview] = useState(defaultEditorContextData.showPreview);
   const [backgroundColor, setBackgroundColor] = useState(defaultEditorContextData.backgroundColor);
   const [backgroundUrl, setBackgroundUrl] = useState(defaultEditorContextData.backgroundUrl);
@@ -82,6 +91,7 @@ export function useEditorState(): EditorContextData {
   }
 
   return {
+    codeMirror,
     unsavedChanges,
     setUnsavedChanges,
     code,
@@ -90,6 +100,8 @@ export function useEditorState(): EditorContextData {
     setMode,
     filePath,
     setFilePath,
+    showFind,
+    setShowFind,
     showPreview,
     setShowPreview,
     backgroundColor,

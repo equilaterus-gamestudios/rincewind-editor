@@ -5,6 +5,7 @@ import Editor from '../components/Editor';
 import Menu from '../components/Menu';
 import PreviewCol from '../components/PreviewCol';
 import { EditorContext, StoredPreferences } from '../models/editor';
+import FindBar from '../components/FindBar';
 
 const StartPage = () => {
   const { showPreview, setPreferences } = useContext(EditorContext);
@@ -31,7 +32,8 @@ const StartPage = () => {
           <Menu />
         </div>
         <div className="editor">
-          <div className={`editor-col editor-col-preview-${showPreview} no-overflow `}>
+          <div className={`editor-col editor-col-preview-${showPreview} no-overflow`}>
+            <FindBar />
             <Editor />
           </div>
           <PreviewCol enabled={showPreview} />

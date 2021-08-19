@@ -8,10 +8,11 @@ import { LocationContext } from '../models/location';
 import { LOCATIONS, MODE_MD, MODE_RINCEWIND, SAMPLE_CODE } from '../common/constants';
 
 const Menu = () => {
-  const { unsavedChanges, setUnsavedChanges, code, setCode, mode, setMode, filePath, setFilePath, showPreview, setShowPreview} = useContext(EditorContext)
+  const { unsavedChanges, setUnsavedChanges, code, setCode, mode, setMode, filePath, setFilePath, showPreview, setShowPreview, showFind, setShowFind} = useContext(EditorContext)
   const { setLocation } = useContext(LocationContext);
 
   // Togglers
+  const toggleFind = () => setShowFind(!showFind);
   const togglePreview = () => setShowPreview(!showPreview);
   const toggleMode = () => { 
     if (mode === MODE_RINCEWIND) {
@@ -163,7 +164,7 @@ const Menu = () => {
       submenu: [
         {
           label: 'New',
-          click: onNewFile
+          click: onNewFile,
         },
         {
           label: 'Open',
@@ -184,6 +185,30 @@ const Menu = () => {
         {
           label: 'Close',
           role: 'close'
+        }
+      ]
+    }));
+
+    menu.append(new MenuItem({
+      label: 'Edit',
+      submenu: [
+        {
+          label: 'Find',
+          click: toggleFind,
+          accelerator: 'Ctrl+F'
+        },
+        {
+          label: 'Preview',
+          click: togglePreview
+        },
+        {
+          label: 'Compile',
+          click: onCompile,
+          accelerator: 'F5'
+        },
+        {
+          label: 'Setup',
+          click: onPreferences
         }
       ]
     }));
@@ -230,6 +255,11 @@ const Menu = () => {
       onClick={onSaveDialog}>
         <img src={process.env.PUBLIC_URL + '/save.png'} alt=""/> 
         {unsavedChanges ? '[*]' : ''}
+    </button>
+    <button
+      type="button" className="btn" 
+      onClick={toggleFind}>
+       <img src={process.env.PUBLIC_URL + '/find.png'} alt="" />
     </button>
     <button
       type="button" className="btn" 
