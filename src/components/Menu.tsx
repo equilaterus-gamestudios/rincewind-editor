@@ -218,40 +218,42 @@ const Menu = () => {
     <button
       type="button" className="btn"
       onClick={onNewFile}>
-        <img src={process.env.PUBLIC_URL + '/new.png'} />
+        <img src={process.env.PUBLIC_URL + '/new.png'} alt="" />
     </button>
     <button
       type="button" className="btn"
       onClick={onLoadDialog}>
-        <img src={process.env.PUBLIC_URL + '/open.png'} />
+        <img src={process.env.PUBLIC_URL + '/open.png'} alt="" />
     </button>
     <button 
       type="button" className={`btn`} 
       onClick={onSaveDialog}>
-        <img src={process.env.PUBLIC_URL + '/save.png'} /> {unsavedChanges ? '[*]' : ''}
+        <img src={process.env.PUBLIC_URL + '/save.png'} alt=""/> 
+        {unsavedChanges ? '[*]' : ''}
     </button>
     <button
       type="button" className="btn" 
       onClick={togglePreview}>
-       <img src={process.env.PUBLIC_URL + '/preview.png'} />
+       <img src={process.env.PUBLIC_URL + '/preview.png'} alt="" />
     </button>
     <button
       type="button" className="btn" 
       onClick={toggleMode} >
         <img 
           className={mode === MODE_RINCEWIND ? '' : 'img-gray'} 
-          src={process.env.PUBLIC_URL + '/icon.png'}          
+          src={process.env.PUBLIC_URL + '/icon.png'} 
+          alt=""        
         />
     </button>
     <button
       type="button" className={`btn ${!filePath ? 'is-disabled' : ''}`} 
       onClick={onCompile}>
-         <img src={process.env.PUBLIC_URL + '/compile.png'} /> Compile
+         <img src={process.env.PUBLIC_URL + '/compile.png'} alt="" /> Compile
     </button>
     <button
       type="button" className="btn" 
       onClick={onPreferences}>
-         <img src={process.env.PUBLIC_URL + '/preferences.png'} />
+         <img src={process.env.PUBLIC_URL + '/preferences.png'} alt="" />
     </button>
 
     <span className="file-path">{filePath ?? 'Not saved'} {unsavedChanges ? '[*]' : ''}</span>
