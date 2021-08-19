@@ -202,6 +202,10 @@ const Menu = () => {
           click: togglePreview
         },
         {
+          label: 'Mode',
+          click: toggleMode
+        },
+        {
           label: 'Compile',
           click: onCompile,
           accelerator: 'F5'
