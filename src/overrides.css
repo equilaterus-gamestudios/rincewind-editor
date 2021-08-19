@@ -1,14 +1,15 @@
 button:focus, a:focus { outline:0; }
 
 @font-face {
+    font-family: 'VT323';
+    src: local('VT323'), url(./fonts/VT323-Regular.ttf) format('woff');
+}
+
+@font-face {
     font-family: 'Press Start 2P';
     src: local('Press Start 2P'), url(./fonts/PressStart2P-Regular.ttf) format('woff');
 }
 
-@font-face {
-    font-family: 'VT323';
-    src: local('VT323'), url(./fonts/VT323-Regular.ttf) format('woff');
-}
 
 html, body, pre, code, kbd, samp {
     font-family:  'VT323',  'Press Start 2P' !important;
@@ -177,10 +178,10 @@ input.btn {
 }
 /* Menu window */
 .menubar-menu-container .action-menu-item {
-    height: 1rem;
+    height: 1rem !important;
 }
 .menubar-menu-container .action-label:not(.separator), .menubar-menu-container .keybinding {
-    padding: 0 30px 0 0;
+    padding: 0 30px 0 0 !important;
 }
 
 
