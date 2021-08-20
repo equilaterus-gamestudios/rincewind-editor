@@ -11,10 +11,12 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
+    icon: path.join(__dirname, '/icon.png'),
     width: 1280, 
     height: 720, 
     minWidth: 1280,
     minHeight: 720,
+    frame: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -25,9 +27,9 @@ function createWindow() {
   if (isDev) {
     // Open the DevTools.
     //BrowserWindow.addDevToolsExtension('<location to your react chrome extension>');
-    mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();    
   } else {
-    mainWindow.removeMenu();
+    // Do nothing
   }
 
   mainWindow.on('close', (e) => {
@@ -53,6 +55,10 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+electron.ipcMain.handle('is-dev', async () => {
+  return isDev;
+})
 
 // Workaround for https://github.com/electron/electron/issues/19554 otherwise fs does not work
 function loadUrlWithNodeWorkaround(window, url) {

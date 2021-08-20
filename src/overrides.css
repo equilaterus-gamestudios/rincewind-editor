@@ -1,23 +1,48 @@
 button:focus, a:focus { outline:0; }
 
 @font-face {
-    font-family: 'Press Start 2P';
-    src: local('Press Start 2P'), url(./fonts/PressStart2P-Regular.ttf) format('woff');
-}
-
-@font-face {
     font-family: 'VT323';
     src: local('VT323'), url(./fonts/VT323-Regular.ttf) format('woff');
 }
 
-html, body, pre, code, kbd, samp {
-    font-family: 'VT323',  'Press Start 2P';
-    -webkit-font-smoothing: none !important;
-    font-size: 18px;
+@font-face {
+    font-family: 'Press Start 2P';
+    src: local('Press Start 2P'), url(./fonts/PressStart2P-Regular.ttf) format('woff');
 }
 
 
-link > div > p{
+html, body, pre, code, kbd, samp {
+    font-family:  'VT323',  'Press Start 2P' !important;
+    -webkit-font-smoothing: none !important;
+    font-size: 24px !important;
+}
+
+body {
+    background-color: #3a3123;
+    color: #eed093;
+}
+
+.found-text {
+    background-color: #fff;
+    color: #000 !important;
+}
+
+.found-text-selected {
+    background-color: #fdfa55;
+    color: #000 !important;
+}
+
+.rincewind-mode {
+    font-size: 1rem;
+}
+
+h1.rincewind-mode {
+    font-size: 1.6rem;
+}
+
+
+
+link > div > p {
     color: black;
 }
 
@@ -40,6 +65,76 @@ link > div > p{
     margin-top: 30px;
 }
 
+.btn {
+    font-size: 1rem;
+    padding: 1px 6px 4px 6px !important;
+    border-image: none;
+    background-color: #504330;
+    color: #ab9e7f;
+    cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC) 14 0,pointer;
+}
+
+input {
+    background-color: #3b3325;
+    color: #ab9e7f;
+    outline: none;
+    width: 100%;
+}
+
+input.find-input {
+    flex-grow: 1;
+    width: auto;
+}
+    .find-container {
+        opacity: 0.75;
+        position: absolute;
+        top: 0;
+        z-index: 9999;
+        right: 10px;
+        box-sizing: border-box;
+    }
+    .find {        
+        display: flex;
+        position: relative;
+    }
+    .find-result {
+        position: absolute;
+        font-size: 0.8rem;
+        right: 60px;
+        top: 8px;
+    }
+input.btn {
+    width: auto;
+}
+
+.link {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.app a, .link {
+    color: #fdfa55 !important;
+}
+
+.app a:hover, .link:hover {
+    text-decoration: underline !important;
+}
+
+.btn:hover {
+    background-color: #746443;
+    color: #eed093;
+}
+.btn[disabled], .btn[disabled]:hover { 
+    cursor: not-allowed;
+    background-color: #3b3325;
+    color: #ab9e7f;
+}
+
 
 /*
  * Custom scrollbars
@@ -52,32 +147,76 @@ link > div > p{
   
   /* Track */
   ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+    background: #5c4f3c; 
   }
    
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: #888; 
+    background: #352c1e; 
   }
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+    background: #352c1e; 
   }
 
 
-  .app {
+.app {
     max-width: 100vw;
     max-height: 100vh;
     overflow: hidden;
     display: flex;
-    flex-direction: column;
-    background-color: #fbf5ef;
-    color: #3d1500;
+    flex-direction: column;    
 }
 
+.titlebar, .menubar-menu-container .action-label {
+    font-size: 1rem !important;
+}
+.window-title {
+    font-size: 1rem !important;
+    color: #04a8a8;
+}
+/* Menu window */
+.menubar-menu-container .action-menu-item {
+    height: 1rem !important;
+}
+.menubar-menu-container .action-label:not(.separator), .menubar-menu-container .keybinding {
+    padding: 0 30px 0 0 !important;
+}
+
+
+/** App */
 .menu {
-    background-color: #000;
+    display: flex;
+    flex-direction: row;
+    border-top: 2px solid #5c4f3c;
+    border-bottom: 4px solid #33291b;
+    background-color: #504330;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.menu img {
+    max-width: 32px;
+}
+
+.img-gray {
+    filter: grayscale(1);
+}
+
+.logo {
+    margin: 0px 5px;
+}
+
+.file-path {
+    color: #a2937c;
+    margin-left: auto;
+    padding-right: 15px;
+}
+
+.preferences-col {
+    color: #ab9e7f;
+    border-right: 1px solid #504330;
 }
 
 .editor {
@@ -91,21 +230,17 @@ link > div > p{
     overflow: hidden hidden !important;
 }
 
-.file-path {
-    color: white;
-    float:right;
-    padding: 14px;
-}
-
-.editor-col, .preview-col-true {
+.editor-col, .preview-col-true, .preferences-col {
     display: flex;
+    position: relative;
     flex-direction: column;
     flex-basis: 100%;
     flex: 1;
     overflow: hidden auto;
-    max-height: calc(100vh - 52px);
+    max-height: calc(100vh - 84px);
     max-width: 50vw;
     background-size: cover;
+    background-position: center center;
 }
 
 .editor-col-preview-false {
@@ -114,9 +249,14 @@ link > div > p{
 
 .editor-col .CodeMirror {
     overflow: hidden;
-    height: calc(100vh - 52px);
+    height: calc(100vh - 84px);
     width: 100%;
 }
+
+/* Enable if required
+.preview-col-true {
+}
+*/
 
 .preview-col-false {
     display: none;
@@ -124,25 +264,33 @@ link > div > p{
 
 .preview-content {
     padding: 20px;
-    padding-bottom: 70vh;
-    font-size: 1.5rem;    
-    color: #000;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    font-size: 1.0rem;
 }
 
-.preview-content a {
-    color: rgb(12, 0, 124);
+.preview-end {
+    padding-top: 70vh;
+    text-align: right;
+}
+
+.preview-content p {
+    margin-top: 1rem;
 }
 
 .preview-content code {
     display: inline-block;
     background-color: rgba(0,0,0,0.35);
-    color: #f1f1f1;
+    color: #d4ba7c;
     padding: 2px;
-    font-size: 1.8rem;
+    font-size: 1.0rem;
 }
 
 .preview-content .incode {
     display: inline-block;
     background-color: rgba(0,0,0,0.35);
-    color: #f1f1f1;
+    color: #d4ba7c;
+}
+
+pre > div {
+    background: none !important;
 }
