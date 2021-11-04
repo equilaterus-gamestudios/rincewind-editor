@@ -8,6 +8,7 @@ const path = require('path');
 const isDev =  require('electron-is-dev');
 
 let mainWindow;
+let fullscreen = false;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -58,6 +59,12 @@ app.on('activate', () => {
 
 electron.ipcMain.handle('is-dev', async () => {
   return isDev;
+})
+
+electron.ipcMain.handle('fullscreen', async () => {
+  fullscreen = !fullscreen;
+  mainWindow.setFullScreen(fullscreen);
+  return true;
 })
 
 // Workaround for https://github.com/electron/electron/issues/19554 otherwise fs does not work
