@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { shell } from 'electron';
+import { ipcRenderer, shell } from 'electron';
 import { dialog, Menu as ElectronMenu, MenuItem } from '@electron/remote';
 import { loadFile, saveFile } from '../common/fileUtils';
 import { isDev, titlebar } from '../App';
@@ -157,6 +157,10 @@ const Menu = () => {
     setLocation(LOCATIONS.PREFERENCES);
   }
 
+  const onFullscreen = async () => {
+     await ipcRenderer.invoke('fullscreen');
+  }
+
   useEffect(()=> {
     const menu = new ElectronMenu();
     menu.append(new MenuItem({
@@ -213,6 +217,11 @@ const Menu = () => {
         {
           label: 'Setup',
           click: onPreferences
+        },
+        {
+          label: 'Fullscreen',
+          click: onFullscreen,
+          accelerator: 'F11'
         }
       ]
     }));
