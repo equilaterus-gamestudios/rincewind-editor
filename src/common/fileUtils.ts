@@ -1,9 +1,9 @@
 import { dialog } from '@electron/remote';
 import { promises as fs } from 'fs';
 
-export const saveFile = async (code: string, filepath: string): Promise<boolean> => {
+export const saveFile = async (contents: string, filepath: string): Promise<boolean> => {
   try {
-    await fs.writeFile(filepath, code, 'utf8');
+    await fs.writeFile(filepath, contents, 'utf8');
     return true;
   } catch(e) {
     console.log(e);

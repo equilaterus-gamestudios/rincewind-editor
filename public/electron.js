@@ -13,6 +13,7 @@ let fullscreen = false;
 function createWindow() {
   mainWindow = new BrowserWindow({
     icon: path.join(__dirname, '/icon.png'),
+    backgroundColor: '#000',
     width: 1280, 
     height: 720, 
     minWidth: 1280,
@@ -38,7 +39,7 @@ function createWindow() {
       mainWindow,
       {
         type: 'question',
-        buttons: ['No, I don\'t want to be evaporated (neither lose pending changes).', 'Yes. Close everything.'],
+        buttons: ['Wait! I don\'t want to be evaporated (neither lose pending changes).', 'Yes. Close everything.'],
         title: 'Confirmation',
         message: 'Unsaved changes will be lost.'
       }

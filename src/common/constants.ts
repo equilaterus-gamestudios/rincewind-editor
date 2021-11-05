@@ -1,6 +1,12 @@
 export const LOCATIONS = {
   START: ".",
-  PREFERENCES: "/Preferences"
+  PREFERENCES: "/Preferences",
+  EDITOR: "/Editor"
+}
+
+export const FILES = {
+  CONFIG: 'config.ini', 
+  RECENT_FILES: 'recent.ini'
 }
 
 export const MODE_RINCEWIND = 'MODE_RINCEWIND';
