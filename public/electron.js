@@ -13,6 +13,7 @@ let fullscreen = false;
 function createWindow() {
   mainWindow = new BrowserWindow({
     icon: path.join(__dirname, '/icon.png'),
+    backgroundColor: '#000',
     width: 1280, 
     height: 720, 
     minWidth: 1280,
