@@ -6,6 +6,7 @@ import { ipcRenderer } from 'electron';
 import { EditorContext, useEditorState } from './models/editor';
 import { LocationContext, useLocationState } from './models/location';
 import { LOCATIONS } from './common/constants';
+import EditorPage from './pages/EditorPage';
 
 // Custom title bar
 export const titlebar = new Titlebar({
@@ -31,6 +32,7 @@ const App = () => {
     <EditorContext.Provider value={editorState}>
       {location === LOCATIONS.START && <StartPage />}
       {location === LOCATIONS.PREFERENCES && <PreferencesPage />}
+      {location === LOCATIONS.EDITOR && <EditorPage />}
     </EditorContext.Provider>   
     </LocationContext.Provider>
   );

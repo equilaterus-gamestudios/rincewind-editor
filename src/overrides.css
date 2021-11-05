@@ -219,6 +219,10 @@ input.btn {
     border-right: 1px solid #504330;
 }
 
+.default-col {
+    color: #ab9e7f;
+}
+
 .editor {
     display: flex;
     flex-direction: row;
@@ -230,7 +234,7 @@ input.btn {
     overflow: hidden hidden !important;
 }
 
-.editor-col, .preview-col-true, .preferences-col {
+.editor-col, .preview-col-true, .preferences-col, .default-col {
     display: flex;
     position: relative;
     flex-direction: column;
@@ -243,7 +247,7 @@ input.btn {
     background-position: center center;
 }
 
-.editor-col-preview-false {
+.editor-col-preview-false, .default-col {
     max-width: 100vw;
 }
 

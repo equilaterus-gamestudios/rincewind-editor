@@ -1,10 +1,11 @@
 import { createContext, MutableRefObject, useRef, useState } from "react";
 import { SAMPLE_CODE, MODE_RINCEWIND } from "../common/constants";
 
-// Custom interface to get stored data
+// Custom interfaces to get stored data
 export interface StoredPreferences {
   backgroundColor: string,
   backgroundUrl: string,
+  numberRecentFiles: number
 }
 
 // Context shape
@@ -23,13 +24,20 @@ export interface EditorContextData {
   setShowFind: (boolean) => void,
   showPreview: boolean,
   setShowPreview: (boolean) => void,
+  
   backgroundColor: string | undefined,
   setBackgroundColor: (string) => void,
   backgroundUrl: string | undefined,
   setBackgroundUrl: (string) => void,
+  numberRecentFiles: number,
+  setNumberRecentFiles: (number) => void,
   setPreferencesDefaults: () => void,
   setPreferences: (preferences: StoredPreferences) => void,
-  getPreferencesToStore: () => StoredPreferences
+  getPreferencesToStore: () => StoredPreferences,
+  
+  recentFiles: string[],
+  setRecentFiles: (recentFiles: string[]) => void,
+  addToRecentFiles: (filePath: string) => string[],
 }
 
 // Default context data
@@ -47,6 +55,7 @@ export const defaultEditorContextData: EditorContextData = {
   setShowFind: () => { throw Error('Not implemented setShowFind'); },
   showPreview: true,
   setShowPreview:  () => { throw Error('Not implemented setShowPreview'); },
+
   backgroundColor: 'rgba(47, 45, 45, 0.7)',
   setBackgroundColor: () => { throw Error('Not implemented setBackgroundColor'); },
   backgroundUrl: '',
@@ -55,6 +64,14 @@ export const defaultEditorContextData: EditorContextData = {
   // eslint-disable-next-line
   setPreferences: (preferences: StoredPreferences) => { throw Error('Not implemented setPreferences'); },
   getPreferencesToStore: () => { throw Error('Not implemented getPreferencesToStore'); },
+  numberRecentFiles: 20,
+  setNumberRecentFiles: (numberRecentFiles) => { throw Error('Not implemented setNumberRecentFiles'); }, 
+
+  recentFiles: [],
+  // eslint-disable-next-line
+  setRecentFiles: (recentFiles: string[]) => { throw Error('Not implemented setRecent'); },
+  // eslint-disable-next-line
+  addToRecentFiles: (filePath: string) => { throw Error('Not implemented addToRecentFiles'); }
 }
 
 // Context
@@ -69,8 +86,10 @@ export function useEditorState(): EditorContextData {
   const [filePath, setFilePath] = useState(defaultEditorContextData.filePath);
   const [showFind, setShowFind] = useState(defaultEditorContextData.showFind);
   const [showPreview, setShowPreview] = useState(defaultEditorContextData.showPreview);
+
   const [backgroundColor, setBackgroundColor] = useState(defaultEditorContextData.backgroundColor);
   const [backgroundUrl, setBackgroundUrl] = useState(defaultEditorContextData.backgroundUrl);
+  const [numberRecentFiles, setNumberRecentFiles] = useState(defaultEditorContextData.numberRecentFiles);
 
   const setPreferencesDefaults = () => {
     setBackgroundColor(defaultEditorContextData.backgroundColor);
@@ -86,8 +105,29 @@ export function useEditorState(): EditorContextData {
   const getPreferencesToStore = (): StoredPreferences => {
     return {
       backgroundColor, 
-      backgroundUrl
+      backgroundUrl,
+      numberRecentFiles
     }
+  }
+
+  const [recentFiles, setRecentFiles] = useState(defaultEditorContextData.recentFiles);
+ 
+  const addToRecentFiles = (filePath) => {
+    // Prepare array
+    let newRecentFiles = [filePath];
+    for (let i = recentFiles.length - 1; i >= 0; --i) {
+      if (recentFiles[i] !== filePath) {
+        newRecentFiles.push(recentFiles[i])
+      }
+    }
+    while (newRecentFiles.length > numberRecentFiles) {
+      newRecentFiles.pop();
+    }
+
+    // Store
+    setRecentFiles(newRecentFiles);
+
+    return newRecentFiles;
   }
 
   return {
@@ -104,12 +144,19 @@ export function useEditorState(): EditorContextData {
     setShowFind,
     showPreview,
     setShowPreview,
+
     backgroundColor,
     setBackgroundColor,
     backgroundUrl,
     setBackgroundUrl,
+    numberRecentFiles,
+    setNumberRecentFiles,
     setPreferencesDefaults,
     setPreferences,
-    getPreferencesToStore
+    getPreferencesToStore,
+
+    recentFiles,
+    setRecentFiles,
+    addToRecentFiles,
   }
 }

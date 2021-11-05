@@ -1,29 +1,20 @@
-import React, { useContext, useEffect } from 'react';
-import { dialog } from 'electron';
-import { loadFile } from '../common/fileUtils';
-import Editor from '../components/Editor';
+import React, { useEffect } from 'react';
 import Menu from '../components/Menu';
-import PreviewCol from '../components/PreviewCol';
-import { EditorContext, StoredPreferences } from '../models/editor';
-import FindBar from '../components/FindBar';
+import StartActions from '../components/StartActions';
+import { useRincewindActions } from '../common/actions';
+import RecentFiles from '../components/RecentFiles';
 
 const StartPage = () => {
-  const { showPreview, setPreferences } = useContext(EditorContext);
-
+  const { loadPreferences, loadRecentFiles } = useRincewindActions();
+  
   // On mount
   useEffect(() => {
-    // Load preferences
+    // Load data
     (async () => {
-      const configStr = await loadFile('config.ini', false);
-      if (configStr) {
-        try {
-          setPreferences(JSON.parse(configStr) as StoredPreferences);
-        } catch (e) {
-          dialog.showErrorBox('Bad config', JSON.stringify(e));
-        }
-      }
+      await loadPreferences();
+      await loadRecentFiles();
     })();
-  }, [setPreferences])
+  }, [loadPreferences, loadRecentFiles])
 
   return  (
     <>
@@ -32,11 +23,14 @@ const StartPage = () => {
           <Menu />
         </div>
         <div className="editor">
-          <div className={`editor-col editor-col-preview-${showPreview} no-overflow`}>
-            <FindBar />
-            <Editor />
+          <div className="default-col container-fluid">
+            <div className="row">
+              <div className="col-4">
+                <StartActions />
+              </div>
+            </div>
+            <RecentFiles />
           </div>
-          <PreviewCol enabled={showPreview} />
         </div>
       </div>
     </>

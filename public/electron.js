@@ -39,7 +39,7 @@ function createWindow() {
       mainWindow,
       {
         type: 'question',
-        buttons: ['No, I don\'t want to be evaporated (neither lose pending changes).', 'Yes. Close everything.'],
+        buttons: ['Wait! I don\'t want to be evaporated (neither lose pending changes).', 'Yes. Close everything.'],
         title: 'Confirmation',
         message: 'Unsaved changes will be lost.'
       }
