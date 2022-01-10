@@ -7,6 +7,7 @@ import { EditorContext, useEditorState } from './models/editor';
 import { LocationContext, useLocationState } from './models/location';
 import { LOCATIONS } from './common/constants';
 import EditorPage from './pages/EditorPage';
+import Autosave from './components/Autosave';
 
 // Custom title bar
 export const titlebar = new Titlebar({
@@ -23,16 +24,19 @@ const App = () => {
   useEffect(() => {
     setIsDev();
   }, [])
-
+  
   const editorState = useEditorState();
   const locationState = useLocationState(); 
   const location = locationState.location;
   return (
     <LocationContext.Provider value={locationState}>
     <EditorContext.Provider value={editorState}>
-      {location === LOCATIONS.START && <StartPage />}
-      {location === LOCATIONS.PREFERENCES && <PreferencesPage />}
-      {location === LOCATIONS.EDITOR && <EditorPage />}
+      <>
+        <Autosave saveTime={editorState.autosaveTime} />
+        {location === LOCATIONS.START && <StartPage />}
+        {location === LOCATIONS.PREFERENCES && <PreferencesPage />}
+        {location === LOCATIONS.EDITOR && <EditorPage />}
+      </>
     </EditorContext.Provider>   
     </LocationContext.Provider>
   );

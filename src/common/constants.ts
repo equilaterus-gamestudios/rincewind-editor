@@ -9,6 +9,8 @@ export const FILES = {
   RECENT_FILES: 'recent.ini'
 }
 
+export const AUTOSAVE_PATH = './autosave/';
+
 export const MODE_RINCEWIND = 'MODE_RINCEWIND';
 export const MODE_MD = 'MODE_MD';
 
