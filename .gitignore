@@ -26,6 +26,7 @@
 # ignore generated files
 config.ini
 recent.ini
+/autosave
 
 # ignore .exe
 Rincewind.exe
