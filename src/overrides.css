@@ -276,7 +276,7 @@ input.btn {
 }
 
 .preview-end {
-    padding-top: 70vh;
+    padding-top: calc(100vh - 84px);
     text-align: right;
 }
 
