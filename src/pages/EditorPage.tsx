@@ -1,30 +1,13 @@
-import React, { useContext, useEffect } from 'react';
-import { dialog } from 'electron';
-import { loadFile } from '../common/fileUtils';
+import React, { useContext } from 'react';
 import Editor from '../components/Editor';
 import Menu from '../components/Menu';
 import PreviewCol from '../components/PreviewCol';
-import { EditorContext, StoredPreferences } from '../models/editor';
+import { EditorContext } from '../models/editor';
 import FindBar from '../components/FindBar';
 
 const EditorPage = () => {
-  const { showPreview, setPreferences } = useContext(EditorContext);
-
-  // On mount
-  useEffect(() => {
-    // Load preferences
-    (async () => {
-      const configStr = await loadFile('config.ini', false);
-      if (configStr) {
-        try {
-          setPreferences(JSON.parse(configStr) as StoredPreferences);
-        } catch (e) {
-          dialog.showErrorBox('Bad config', JSON.stringify(e));
-        }
-      }
-    })();
-  }, [setPreferences])
-
+  const { showPreview } = useContext(EditorContext);
+  
   return  (
     <>
       <div className="app">

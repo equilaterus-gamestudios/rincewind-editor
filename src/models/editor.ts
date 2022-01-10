@@ -5,7 +5,9 @@ import { SAMPLE_CODE, MODE_RINCEWIND } from "../common/constants";
 export interface StoredPreferences {
   backgroundColor: string,
   backgroundUrl: string,
-  numberRecentFiles: number
+  numberRecentFiles: number,
+  autosaveTime: number,
+  autosaveHistory: boolean
 }
 
 // Context shape
@@ -31,6 +33,11 @@ export interface EditorContextData {
   setBackgroundUrl: (string) => void,
   numberRecentFiles: number,
   setNumberRecentFiles: (number) => void,
+  autosaveTime: number,
+  setAutosaveTime: (number) => void,
+  autosaveHistory: boolean,
+  setAutosaveHistory: (boolean) => void,
+
   setPreferencesDefaults: () => void,
   setPreferences: (preferences: StoredPreferences) => void,
   getPreferencesToStore: () => StoredPreferences,
@@ -66,6 +73,10 @@ export const defaultEditorContextData: EditorContextData = {
   getPreferencesToStore: () => { throw Error('Not implemented getPreferencesToStore'); },
   numberRecentFiles: 20,
   setNumberRecentFiles: (numberRecentFiles) => { throw Error('Not implemented setNumberRecentFiles'); }, 
+  autosaveTime: 5,  
+  setAutosaveTime: (autoSaveTime) => { throw Error('Not implemented setAutosaveTime'); },
+  autosaveHistory: true,  
+  setAutosaveHistory: (autosaveHistory) => { throw Error('Not implemented setAutosaveHistory'); },
 
   recentFiles: [],
   // eslint-disable-next-line
@@ -90,23 +101,33 @@ export function useEditorState(): EditorContextData {
   const [backgroundColor, setBackgroundColor] = useState(defaultEditorContextData.backgroundColor);
   const [backgroundUrl, setBackgroundUrl] = useState(defaultEditorContextData.backgroundUrl);
   const [numberRecentFiles, setNumberRecentFiles] = useState(defaultEditorContextData.numberRecentFiles);
+  const [autosaveTime, setAutosaveTime] = useState(defaultEditorContextData.autosaveTime);
+  const [autosaveHistory, setAutosaveHistory] = useState(defaultEditorContextData.autosaveHistory);
 
   const setPreferencesDefaults = () => {
     setBackgroundColor(defaultEditorContextData.backgroundColor);
     setBackgroundUrl(defaultEditorContextData.backgroundUrl);
+    setAutosaveTime(defaultEditorContextData.autosaveTime);
+    setAutosaveHistory(defaultEditorContextData.autosaveHistory);
+    setNumberRecentFiles(defaultEditorContextData.numberRecentFiles)
   }
 
   const setPreferences = (preferences: StoredPreferences) => {
     if (!preferences) return;
-    setBackgroundColor(preferences.backgroundColor)
-    setBackgroundUrl(preferences.backgroundUrl)
+    setBackgroundColor(preferences.backgroundColor);
+    setBackgroundUrl(preferences.backgroundUrl);
+    setNumberRecentFiles(preferences.numberRecentFiles);
+    setAutosaveTime(preferences.autosaveTime);
+    setAutosaveHistory(preferences.autosaveHistory);
   }
 
   const getPreferencesToStore = (): StoredPreferences => {
     return {
       backgroundColor, 
       backgroundUrl,
-      numberRecentFiles
+      numberRecentFiles,
+      autosaveTime,
+      autosaveHistory
     }
   }
 
@@ -129,7 +150,7 @@ export function useEditorState(): EditorContextData {
 
     return newRecentFiles;
   }
-
+  
   return {
     codeMirror,
     unsavedChanges,
@@ -151,6 +172,10 @@ export function useEditorState(): EditorContextData {
     setBackgroundUrl,
     numberRecentFiles,
     setNumberRecentFiles,
+    autosaveTime,
+    setAutosaveTime,
+    autosaveHistory,
+    setAutosaveHistory,
     setPreferencesDefaults,
     setPreferences,
     getPreferencesToStore,

@@ -1,13 +1,13 @@
 import { useContext } from 'react';
 import { ipcRenderer, shell } from 'electron';
 import { dialog } from '@electron/remote';
-import { loadFile, saveFile } from './fileUtils';
+import { loadFile, saveFile, createPath } from './fileUtils';
 import { EditorContext, StoredPreferences } from '../models/editor';
 import { LocationContext } from '../models/location';
-import { FILES, LOCATIONS, MODE_MD, MODE_RINCEWIND, SAMPLE_CODE } from './constants';
+import { AUTOSAVE_PATH, FILES, LOCATIONS, MODE_MD, MODE_RINCEWIND, SAMPLE_CODE } from './constants';
 
 export function useRincewindActions() {
-  const { unsavedChanges, setUnsavedChanges, code, setCode, mode, setMode, filePath, setFilePath, showPreview, setShowPreview, showFind, setShowFind, addToRecentFiles, getPreferencesToStore, setPreferences, setRecentFiles} = useContext(EditorContext);
+  const { unsavedChanges, setUnsavedChanges, code, setCode, mode, setMode, filePath, setFilePath, showPreview, setShowPreview, showFind, setShowFind, addToRecentFiles, getPreferencesToStore, setPreferences, setRecentFiles, autosaveHistory} = useContext(EditorContext);
   const { location, setLocation } = useContext(LocationContext);
  
   // Togglers
@@ -134,6 +134,19 @@ export function useRincewindActions() {
 
     return newFilePath;
   }
+
+  const onAutoSave = async () => {
+    await createPath(AUTOSAVE_PATH);
+
+    if (!filePath || autosaveHistory) {
+      const autoSaveDate = new Date().toISOString().replace(/-|T|:/g,"").substring(0,14);
+      await saveFile(code, `${AUTOSAVE_PATH}${autoSaveDate}`);
+    }
+
+    if (filePath) {
+      await saveFile(code, `${filePath}_tmp`);
+    }
+  }
  
   const onSaveDialog = async () => {
     // Get path
@@ -237,6 +250,7 @@ export function useRincewindActions() {
     onNewFile,
     onLoadDialog,
     onLoadFile,
+    onAutoSave,
     onSaveDialog,
     onSaveAsDialog,
     onCompile,
