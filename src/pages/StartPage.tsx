@@ -14,8 +14,10 @@ const StartPage = () => {
       await loadPreferences();
       await loadRecentFiles();
     })();
-  }, [loadPreferences, loadRecentFiles])
-
+    // Removed dependencies as they were starting an infite loop.
+    // eslint-disable-next-line 
+  }, [])
+  
   return  (
     <>
       <div className="app">
