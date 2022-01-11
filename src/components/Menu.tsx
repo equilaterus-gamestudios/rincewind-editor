@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import { Menu as ElectronMenu, MenuItem } from '@electron/remote';
-import { isDev, titlebar } from '../App';
+import { titlebar } from '../App';
 import { EditorContext } from '../models/editor';
 import { MODE_RINCEWIND } from '../common/constants';
 import { useRincewindActions } from '../common/actions';
+import { useIsDev } from '../common/useIsDev';
 
 const Menu = () => {
   const {
@@ -21,6 +22,8 @@ const Menu = () => {
   } = useRincewindActions();
 
   const { unsavedChanges, mode, filePath } = useContext(EditorContext);
+
+  const isDev = useIsDev();
 
   useEffect(()=> {
     const menu = new ElectronMenu();
@@ -91,8 +94,7 @@ const Menu = () => {
       ]
     }));
 
-    if (isDev)
-    {
+    if (isDev) {
       menu.append(new MenuItem({
         label: 'Dev',
         submenu: [
