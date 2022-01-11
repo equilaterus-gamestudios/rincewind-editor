@@ -15,16 +15,7 @@ export const titlebar = new Titlebar({
   icon: `${process.env.PUBLIC_URL}/icon.png`
 });
 
-// Is dev?
-export let isDev: boolean;
-const setIsDev = async () => { isDev = await ipcRenderer.invoke('is-dev') as boolean; };
-
-const App = () => {
-  // On mount set isDev value
-  useEffect(() => {
-    setIsDev();
-  }, [])
-  
+const App = () => {  
   const editorState = useEditorState();
   const locationState = useLocationState(); 
   const location = locationState.location;
