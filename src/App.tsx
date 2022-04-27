@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import StartPage from './pages/StartPage';
 import PreferencesPage from './pages/PreferencesPage';
 import { Titlebar, Color } from 'custom-electron-titlebar';
-import { ipcRenderer } from 'electron';
 import { EditorContext, useEditorState } from './models/editor';
 import { LocationContext, useLocationState } from './models/location';
 import { LOCATIONS } from './common/constants';
