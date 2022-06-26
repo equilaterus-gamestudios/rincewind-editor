@@ -3,8 +3,8 @@ import { SAMPLE_CODE, MODE_RINCEWIND } from "../common/constants";
 
 // Custom interfaces to get stored data
 export interface StoredPreferences {
-  backgroundColor: string,
-  backgroundUrl: string,
+  backgroundColor: string | undefined,
+  backgroundUrl: string | undefined,
   numberRecentFiles: number,
   autosaveTime: number,
   autosaveHistory: boolean
@@ -13,30 +13,30 @@ export interface StoredPreferences {
 // Context shape
 export interface EditorContextData {
   // Codemirror types aren't working, so we use any for them.
-  codeMirror: MutableRefObject<any>, 
+  codeMirror: MutableRefObject<any> | undefined, 
   unsavedChanges: boolean,
-  setUnsavedChanges:  (boolean) => void,
+  setUnsavedChanges:  (value: boolean) => void,
   code: string,
-  setCode: (string) => void,
+  setCode: (value: string) => void,
   mode: string,
-  setMode: (string) => void,
+  setMode: (value: string) => void,
   filePath: string | undefined,
-  setFilePath: (string) => void,
+  setFilePath: (value: string | undefined) => void,
   showFind: boolean,
-  setShowFind: (boolean) => void,
+  setShowFind: (value: boolean) => void,
   showPreview: boolean,
-  setShowPreview: (boolean) => void,
+  setShowPreview: (value: boolean) => void,
   
   backgroundColor: string | undefined,
-  setBackgroundColor: (string) => void,
+  setBackgroundColor: (value: string) => void,
   backgroundUrl: string | undefined,
-  setBackgroundUrl: (string) => void,
+  setBackgroundUrl: (value: string) => void,
   numberRecentFiles: number,
-  setNumberRecentFiles: (number) => void,
+  setNumberRecentFiles: (value: number) => void,
   autosaveTime: number,
-  setAutosaveTime: (number) => void,
+  setAutosaveTime: (value: number) => void,
   autosaveHistory: boolean,
-  setAutosaveHistory: (boolean) => void,
+  setAutosaveHistory: (value: boolean) => void,
 
   setPreferencesDefaults: () => void,
   setPreferences: (preferences: StoredPreferences) => void,
@@ -133,7 +133,7 @@ export function useEditorState(): EditorContextData {
 
   const [recentFiles, setRecentFiles] = useState(defaultEditorContextData.recentFiles);
  
-  const addToRecentFiles = (filePath) => {
+  const addToRecentFiles = (filePath: string) => {
     // Prepare array
     let newRecentFiles = [filePath];
     for (let i = recentFiles.length - 1; i >= 0; --i) {

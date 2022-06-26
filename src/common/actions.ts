@@ -186,7 +186,7 @@ export function useRincewindActions() {
     const paramOutFile = paramInFile.substring(0, paramInFile.lastIndexOf('.'));
     const parameters = [paramPath, paramInFile, paramOutFile];
     
-    child(executablePath, parameters, function(err, data) {
+    child(executablePath, parameters, function(err: any, data: any) {
         if (err) { 
           console.log(err);
           dialog.showErrorBox('Error compiling', data?.toString());

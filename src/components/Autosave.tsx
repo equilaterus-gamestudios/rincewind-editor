@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRincewindActions } from '../common/actions';
 
-const Autosave = ({ saveTime }) => {
+const Autosave = ({ saveTime }: any) => {
   const [time, setTime] = useState(saveTime);
   const { onAutoSave } = useRincewindActions();
 

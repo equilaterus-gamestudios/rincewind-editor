@@ -21,7 +21,9 @@ const Editor = () => {
           lineNumbers: true,
           lineWrapping: true
         }}
-        editorDidMount={(editor) => { codeMirror.current = editor }}
+        editorDidMount={(editor) => { 
+          if (codeMirror) codeMirror.current = editor;
+        }}
         onBeforeChange={(editor, data, value) => {
           setUnsavedChanges(true);
           setCode(value)

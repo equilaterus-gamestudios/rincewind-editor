@@ -9,10 +9,10 @@ import { useRef } from 'react';
 const FindBar = () => {
   const {codeMirror, showFind} = useContext(EditorContext);
   const [resultIndex, setResultIndex] = useState(0);
-  const [findResults, setFindResults] = useState([]);
-  const [findText, setFindText] = useState<string>(undefined);
-  const prevMark = useRef(null);
-  const inputFind = useRef(null);
+  const [findResults, setFindResults] = useState<any>([]);
+  const [findText, setFindText] = useState<string | undefined>(undefined);
+  const prevMark = useRef<any>(null);
+  const inputFind = useRef<any>(null);
 
   useEffect(() => {
     clearAllMarks();
@@ -31,7 +31,7 @@ const FindBar = () => {
     setFindResults([]);
   }
 
-  const scrollToResult = (index, results) => {
+  const scrollToResult = (index: any, results: any) => {
     const editor = codeMirror?.current;
     if (editor) {
       let mark = null;
@@ -53,7 +53,7 @@ const FindBar = () => {
   const clearAllMarks = () => {
     const editor = codeMirror?.current;
     if (editor) {
-      editor.doc.getAllMarks().forEach(marker => marker.clear());
+      editor.doc.getAllMarks().forEach((marker: any) => marker.clear());
     }
   }
 
@@ -97,7 +97,7 @@ const FindBar = () => {
     setResultIndex(newResult);
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: any) => {
     e.preventDefault();
     if (findResults.length === 0) {
       onFind();
