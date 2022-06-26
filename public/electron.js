@@ -1,5 +1,7 @@
 const electron = require('electron');
-require('@electron/remote/main').initialize();
+const remote = require('@electron/remote/main');
+remote.initialize();
+
 const app = electron.app;
 app.allowRendererProcessReuse = false;
 const BrowserWindow = electron.BrowserWindow;
