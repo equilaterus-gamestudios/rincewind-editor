@@ -14,9 +14,12 @@ A safer way to use [Rincewind](https://github.com/equilaterus-gamestudios/rincew
   ````
 
 * Build distribution for floppy disks:
-  ```
-  npm run build-web
-  npm run build
+  ```bash
+  npm run build-app
+  # Build for linux
+  npm run build-linux
+  # Build for win
+  npm run build-win
   ```
 
-To enable compilation, download the latest release of [Rincewind](https://github.com/equilaterus-gamestudios/rincewind/releases) and put it at the root folder of this project.
+To enable compilation (for development environments), download the latest release of [Rincewind](https://github.com/equilaterus-gamestudios/rincewind/releases) and put it at the root folder of this project.
