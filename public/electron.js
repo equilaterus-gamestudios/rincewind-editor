@@ -12,6 +12,9 @@ const isDev =  require('electron-is-dev');
 let mainWindow;
 let fullscreen = false;
 
+const customTitlebar = require('custom-electron-titlebar/main');
+customTitlebar.setupTitlebar();
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     icon: path.join(__dirname, '/icon.png'),
@@ -36,6 +39,7 @@ function createWindow() {
   } else {
     // Do nothing
   }
+  customTitlebar.attachTitlebarToWindow(mainWindow);
 
   mainWindow.on('close', (e) => {
     const choice = electron.dialog.showMessageBoxSync(
