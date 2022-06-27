@@ -10,6 +10,26 @@ export const pathExists = async (path: string) => {
   }
 }
 
+const getFileNameWithExtension = (filePath: string, extension: string): string  => (
+  filePath.endsWith(extension) 
+    ? filePath
+    : `${filePath}.${extension}`
+)
+
+export const forceExtension = async (filePath: string, extension: string): Promise<string> => {
+  let fixedFilePath = getFileNameWithExtension(filePath, extension);
+  // If new name was generate
+  if (fixedFilePath !== filePath) {
+    // Grant a new file-name (to avoid overwritting user files)
+    let number = 1;
+    while (await pathExists(fixedFilePath)) {
+      fixedFilePath = getFileNameWithExtension(`${filePath}[${number}]`, extension);
+      ++number;
+    }
+  }
+  return fixedFilePath
+}
+
 export const createPath = async (path: string) => {
   try {
     if (!await pathExists(path)) {
