@@ -1,6 +1,6 @@
 // @ts-nocheck
 // Ignoring style-types error
-import React, { CSSProperties, useContext } from 'react'
+import React, { useContext } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism'
