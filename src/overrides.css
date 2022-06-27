@@ -172,7 +172,7 @@ input.btn {
     flex-direction: column;    
 }
 
-.cet-titlebar, .menubar-menu-container .action-label {
+.cet-titlebar, .cet-menubar-menu-container .cet-action-label {
     font-size: 1rem !important;
 }
 .cet-window-title {
