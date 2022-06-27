@@ -14,6 +14,8 @@ export const AUTOSAVE_PATH = './autosave/';
 export const MODE_RINCEWIND = 'MODE_RINCEWIND';
 export const MODE_MD = 'MODE_MD';
 
+export const FILE_EXTENSION = 'md';
+
 export const SAMPLE_CODE = `# start
 
 - \`Terry Pratchett $t\`:  

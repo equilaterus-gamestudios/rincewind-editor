@@ -1,7 +1,9 @@
-import React, { useContext } from 'react'
+// @ts-nocheck
+// Ignoring style-types error
+import React, { CSSProperties, useContext } from 'react'
 import ReactMarkdown from 'react-markdown'
-import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
-import {dark} from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import gfm from 'remark-gfm'
 import { Element } from 'react-markdown/src/ast-to-react'
 import { EditorContext } from '../models/editor'
@@ -16,7 +18,7 @@ const getIdFromHeader = (node: Element): string => {
   let id: string = ''; 
   if (node && node.children?.length > 0)
   {
-    id = node.children[0].value as string;
+    id = (node.children[0] as any).value as string;
   }
   return id
 }

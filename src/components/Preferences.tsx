@@ -34,7 +34,7 @@ const Preferences = () => {
           <label>Recent files</label>  
         </div>
         <div className="col-8">       
-          <input type="number" value={numberRecentFiles} onChange={(e) => setNumberRecentFiles(e.target.value)} />          
+          <input type="number" value={numberRecentFiles} onChange={(e) => setNumberRecentFiles(+e.target.value)} />          
         </div>
       </div>
       <div className="row pt-2">
@@ -42,7 +42,7 @@ const Preferences = () => {
           <label>Auto save (minutes)</label>  
         </div>
         <div className="col-8">       
-          <input type="number" value={autosaveTime} onChange={(e) => setAutosaveTime(e.target.value)} />          
+          <input type="number" value={autosaveTime} onChange={(e) => setAutosaveTime(+e.target.value)} />          
         </div>
       </div>
       <div className="row pt-2">

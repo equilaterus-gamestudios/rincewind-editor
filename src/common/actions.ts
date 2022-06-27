@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import { ipcRenderer, shell } from 'electron';
 import { dialog } from '@electron/remote';
-import { loadFile, saveFile, createPath } from './fileUtils';
+import { loadFile, saveFile, createPath, forceExtension } from './fileUtils';
 import { EditorContext, StoredPreferences } from '../models/editor';
 import { LocationContext } from '../models/location';
-import { AUTOSAVE_PATH, FILES, LOCATIONS, MODE_MD, MODE_RINCEWIND, SAMPLE_CODE } from './constants';
+import { AUTOSAVE_PATH, FILES, FILE_EXTENSION, LOCATIONS, MODE_MD, MODE_RINCEWIND, SAMPLE_CODE } from './constants';
 
 export function useRincewindActions() {
   const { unsavedChanges, setUnsavedChanges, code, setCode, mode, setMode, filePath, setFilePath, showPreview, setShowPreview, showFind, setShowFind, addToRecentFiles, getPreferencesToStore, setPreferences, setRecentFiles, autosaveHistory} = useContext(EditorContext);
@@ -119,13 +119,13 @@ export function useRincewindActions() {
     const result = await dialog.showSaveDialog(
       {
         title:'Save Dialogue',
-        filters: [{ name: 'Markdown', extensions: ['md'] }]
+        filters: [{ name: 'Markdown', extensions: [FILE_EXTENSION] }]
       }
     );
     if (!result.filePath) return undefined;
     
     // Update path
-    const newFilePath = result.filePath;
+    const newFilePath = await forceExtension(result.filePath, FILE_EXTENSION);
     setFilePath(newFilePath);
 
     // Update recent files
@@ -186,7 +186,7 @@ export function useRincewindActions() {
     const paramOutFile = paramInFile.substring(0, paramInFile.lastIndexOf('.'));
     const parameters = [paramPath, paramInFile, paramOutFile];
     
-    child(executablePath, parameters, function(err, data) {
+    child(executablePath, parameters, function(err: any, data: any) {
         if (err) { 
           console.log(err);
           dialog.showErrorBox('Error compiling', data?.toString());
